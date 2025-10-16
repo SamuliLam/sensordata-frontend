@@ -1,0 +1,73 @@
+@theme {
+
+    /* Colors */
+    /* Colors */
+    --color-Main-piccolo: #4E46B4;
+    --color-Main-hit: #40A69F;
+    --color-Main-beerus: #E2E2E2;
+    --color-Main-goku: #F5F5F5;
+    --color-Main-gohan: #FFFFFF;
+    --color-Main-bulma: #000000;
+    --color-Main-trunks: #595D62;
+    --color-Main-goten: #FFFFFF;
+    --color-Main-popo: #000000;
+    --color-Main-jiren: #4E46B4;
+    --color-Main-heles: #000000;
+    --color-Main-zeno: #000000;
+    --color-Supportive-krillin: #FFB319;
+    --color-Supportive-krillin-60: #FFB319;
+    --color-Supportive-krillin-10: #FFB319;
+    --color-Supportive-chichi: #FF4E64;
+    --color-Supportive-chichi-60: #FF4E64;
+    --color-Supportive-chichi-10: #FF4E64;
+    --color-Supportive-roshi: #2E7D32;
+    --color-Supportive-roshi-60: #2E7D32;
+    --color-Supportive-roshi-10: #2E7D32;
+    --color-Supportive-dodoria: #D33030;
+    --color-Supportive-dodoria-60: #D33030;
+    --color-Supportive-dodoria-10: #D33030;
+    --color-Supportive-cell: #95F1D5;
+    --color-Supportive-cell-60: #95F1D5;
+    --color-Supportive-cell-10: #95F1D5;
+    --color-Supportive-raditz: #B3804A;
+    --color-Supportive-raditz-60: #B3804A;
+    --color-Supportive-raditz-10: #B3804A;
+    --color-Supportive-whis: #3448F0;
+    --color-Supportive-whis-60: #3448F0;
+    --color-Supportive-whis-10: #3448F0;
+    --color-Supportive-frieza: #5C33CF;
+    --color-Supportive-frieza-60: #5C33CF;
+    --color-Supportive-frieza-10: #5C33CF;
+    --color-Supportive-nappa: #725550;
+    --color-Supportive-nappa-60: #725550;
+    --color-Supportive-nappa-10: #725550;
+
+    /* Spacing */
+    --spacing-p-1: 4px;
+    --spacing-p-2: 8px;
+    --spacing-p-3: 12px;
+    --spacing-p-4: 16px;
+    --spacing-p-5: 20px;
+    --spacing-p-6: 24px;
+    --spacing-p-7: 28px;
+    --spacing-p-8: 32px;
+    --spacing-p-9: 36px;
+    --spacing-p-10: 40px;
+    --spacing-p-11: 44px;
+    --spacing-p-12: 48px;
+
+
+
+    /* Shadows */
+    --shadow-glassmorphism: 0px 16px 24px 0 rgba(3, 6, 13, 0.47999998927116394), 0px -2px 8px 0 rgba(3, 6, 13, 0.03999999910593033);
+    --shadow-focus-state: 0px 0px 0px 0 rgba(78, 70, 180, 0.11999999731779099);
+    --shadow-light-shadow-sm: 0px 0px 1px 0 rgba(0, 0, 0, 0.4000000059604645), 0px 6px 6px 0 rgba(0, 0, 0, 0.1599999964237213);
+    --shadow-light-shadow-md: 0px 0px 1px 0 rgba(0, 0, 0, 0.4000000059604645), 0px 12px 12px 0 rgba(0, 0, 0, 0.1599999964237213);
+    --shadow-light-shadow-lg: 0px 0px 1px 0 rgba(0, 0, 0, 0.4000000059604645), 0px 8px 24px 0 rgba(0, 0, 0, 0.1599999964237213);
+    --shadow-light-shadow-xl: 0px 0px 1px 0 rgba(0, 0, 0, 0.20000000298023224), 0px 0px 32px 0 rgba(0, 0, 0, 0.11999999731779099), 0px 32px 32px 0 rgba(0, 0, 0, 0.07999999821186066);
+    --shadow-dark-shadow-md: 0px 0px 1px 0 rgba(0, 0, 0, 0.5600000023841858), 0px 12px 12px 0 rgba(0, 0, 0, 0.6399999856948853);
+    --shadow-dark-shadow-lg: 0px 0px 1px 0 rgba(0, 0, 0, 0.5600000023841858), 0px 24px 24px 0 rgba(0, 0, 0, 0.6399999856948853);
+    --shadow-dark-shadow-xl: 0px 0px 1px 0 rgba(0, 0, 0, 0.7200000286102295), 0px 48px 48px 0 rgba(0, 0, 0, 0.8799999952316284);
+    --shadow-dark-shadow-sm: 0px 0px 1px 0 rgba(0, 0, 0, 0.5600000023841858), 0px 6px 6px 0 rgba(0, 0, 0, 0.6399999856948853);
+
+}
