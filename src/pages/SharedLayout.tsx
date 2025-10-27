@@ -4,10 +4,10 @@ import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/inpu
 
     export const SharedLayout = () => {
     return (
-        <div className={"min-h-screen flex flex-col bg-gray-50 text-gray-800"}>
-            <header className={"p-4 bg-Main-beerus"}>
-                <nav className={"flex items-center justify-center"}>
-                    <ul className={"flex text-Main-piccolo font-bold text-2xl justify-between mx-auto max-w-4/5 grow"}>
+        <>
+            <header className={"p-2 bg-Main-beerus"}>
+                <nav className={"flex items-center justify-center text-2xl"}>
+                    <ul className={"flex text-Main-piccolo text-shadow-background text-Main font-bold justify-between mx-auto max-w-4/5 grow items-center"}>
                         <li><a href="/">Sensor Dashboard</a></li>
                         <li><a href="/sensors">Sensors</a></li>
                         <li>
@@ -21,11 +21,12 @@ import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/inpu
                     </ul>
                 </nav>
             </header>
-            <main className="">
+            <main className="flex items-center justify-center grow">
                 <Outlet/>
             </main>
-            <footer></footer>
-
-        </div>
+            <footer className={"flex items-center justify-center"}>
+                <p>This is the footer</p>
+            </footer>
+        </>
     )
 }

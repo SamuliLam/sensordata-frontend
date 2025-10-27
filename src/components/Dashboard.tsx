@@ -1,9 +1,16 @@
-export const Dashboard = ({ dsb_link }: { dsb_link: string }) => {
+interface DashboardProps {
+    dsb_link: string;
+    styles?: string;
+}
+
+export const Dashboard = ({ dsb_link, styles }: DashboardProps) => {
+    const defaultClasses = "grow rounded-md w-1/2 shadow-light-shadow-sm"
+
     return (
         <iframe
             title="Dashboard"
             src={dsb_link}
-            width="1000" height="400" frameBorder="0" className={"rounded-md"}>
+            className={ `${defaultClasses} ${styles}`}>
         </iframe>
     )
 }

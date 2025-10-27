@@ -5,6 +5,7 @@ export const SensorData = () => {
 
     return (
         <div>
+
             <p>asdasdas</p>
         </div>
     )
