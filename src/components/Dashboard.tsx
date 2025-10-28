@@ -4,7 +4,7 @@ interface DashboardProps {
 }
 
 export const Dashboard = ({ dsb_link, styles }: DashboardProps) => {
-    const defaultClasses = "grow rounded-md w-1/2 shadow-light-shadow-sm"
+    const defaultClasses = "grow rounded-md shadow-light-shadow-sm"
 
     return (
         <iframe
