@@ -1,14 +1,16 @@
 interface DashboardProps {
-  url?: string;
-  title?: string;
-  className?: string;
+    dsb_link: string;
+    styles?: string;
 }
 
-export const Dashboard = ({ url, title, className }: DashboardProps) => (
-  <iframe
-    src={url}
-    title={title || "Grafana Dashboard"}
-    className={className}
-    allowFullScreen
-  />
-);
+export const Dashboard = ({ dsb_link, styles }: DashboardProps) => {
+    const defaultClasses = "grow rounded-md shadow-light-shadow-sm"
+
+    return (
+        <iframe
+            title="Dashboard"
+            src={dsb_link}
+            className={ `${defaultClasses} ${styles}`}>
+        </iframe>
+    )
+}
