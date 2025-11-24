@@ -12,10 +12,10 @@ export function AddSensor() {
         const formData = new FormData(e.target);
 
         const payload = {
-            sensorId: formData.get("sensorId"),
+            sensor_id: formData.get("sensorId"),
             latitude: formData.get("latitude"),
             longitude: formData.get("longitude"),
-            sensorType: selectedSensorType,
+            sensor_type: selectedSensorType,
         };
 
         try {
@@ -43,8 +43,8 @@ export function AddSensor() {
 
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 <div className="flex flex-col">
-                    <label htmlFor="sensorId" className="mb-1 font-medium">Sensor ID</label>
-                    <input type="text" id="sensorId" name="sensorId"
+                    <label htmlFor="sensor_id" className="mb-1 font-medium">Sensor ID</label>
+                    <input type="text" id="sensor_id" name="sensorId"
                            className="border rounded px-3 py-2"
                            placeholder="Enter Sensor ID" />
                 </div>
@@ -65,7 +65,7 @@ export function AddSensor() {
 
                 <Menu>
                     <MenuButton
-                        className="inline-flex justify-center items-center gap-2 rounded-md bg-[var(--color-Supportive-frieza)] px-3 py-1.5 text-white shadow-inner shadow-white/10"
+                        className="inline-flex justify-center items-center gap-2 rounded-md bg-[var(--color-Supportive-frieza)] px-3 py-1.5 hover:bg-[var(--color-Supportive-whis-10)] text-white shadow-inner shadow-white/10"
                     >
                         {selectedSensorType}
                     </MenuButton>
