@@ -2,15 +2,44 @@ import * as React from "react";
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { useState } from "react";
 
+type SensorErrors = {
+    sensorId?: string;
+    latitude?: string;
+    longitude?: string;
+    sensorType?: string;
+};
+
+
 export function AddSensor() {
     const [selectedSensorType, setSelectedSensorType] = useState("Select sensor type");
     const sensorTypes = ["Urban", "Viherpysakki", "Ymparistomoduuli", "Suvilahti"];
+    const [errors, setErrors] = useState<SensorErrors>({});
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
 
         const formData = new FormData(e.target);
 
+        const newErrors : SensorErrors = {};
+
+        if (!formData.get("sensorId")) newErrors.sensorId = "Sensor ID is required";
+
+        if (!formData.get("latitude")) newErrors.latitude = "Latitude is required";
+        if (formData.get("latitude") && isNaN(Number(formData.get("latitude")))) newErrors.latitude = "Latitude must be a number";
+
+        if (!formData.get("longitude")) newErrors.longitude = "Longitude is required";
+        if (formData.get("longitude") && isNaN(Number(formData.get("longitude")))) newErrors.longitude = "Longitude must be a number";
+
+        if (selectedSensorType === "Select sensor type") newErrors.sensorType = "Sensor type is required";
+
+        if(Object.keys(newErrors).length !== 0) {
+            setErrors(newErrors);
+            console.log("Form validation errors", newErrors);
+        } else {
+            setErrors({})
+            console.log("Form validated and submitted", formData)
+        }
         const payload = {
             sensor_id: formData.get("sensorId"),
             latitude: formData.get("latitude"),
@@ -48,6 +77,7 @@ export function AddSensor() {
                            className="border rounded px-3 py-2"
                            placeholder="Enter Sensor ID" />
                 </div>
+                {errors.sensorId && <p className="text-red-500 text-sm">{errors.sensorId}</p>}
 
                 <div className="flex flex-col">
                     <label htmlFor="latitude" className="mb-1 font-medium">Latitude</label>
@@ -55,6 +85,7 @@ export function AddSensor() {
                            className="border rounded px-3 py-2"
                            placeholder="Enter Latitude" />
                 </div>
+                {errors.latitude && <p className="text-red-500 text-sm">{errors.latitude}</p>}
 
                 <div className="flex flex-col">
                     <label htmlFor="longitude" className="mb-1 font-medium">Longitude</label>
@@ -62,6 +93,7 @@ export function AddSensor() {
                            className="border rounded px-3 py-2"
                            placeholder="Enter Longitude" />
                 </div>
+                {errors.longitude && <p className="text-red-500 text-sm">{errors.longitude}</p>}
 
                 <Menu>
                     <MenuButton
@@ -69,6 +101,7 @@ export function AddSensor() {
                     >
                         {selectedSensorType}
                     </MenuButton>
+                    {errors.sensorType && <p className="text-red-500 text-sm mt-1">{errors.sensorType}</p>}
 
                     <MenuItems
                         transition
