@@ -73,7 +73,9 @@ export function AddSensor() {
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 <div className="flex flex-col">
                     <label htmlFor="sensor_id" className="mb-1 font-medium">Sensor ID</label>
-                    <input type="text" id="sensor_id" name="sensorId"
+                    <input type="text"
+                           id="sensor_id"
+                           name="sensorId"
                            className="border rounded px-3 py-2"
                            placeholder="Enter Sensor ID" />
                 </div>
@@ -81,7 +83,9 @@ export function AddSensor() {
 
                 <div className="flex flex-col">
                     <label htmlFor="latitude" className="mb-1 font-medium">Latitude</label>
-                    <input type="text" id="latitude" name="latitude"
+                    <input type="text"
+                           id="latitude"
+                           name="latitude"
                            className="border rounded px-3 py-2"
                            placeholder="Enter Latitude" />
                 </div>
@@ -89,7 +93,9 @@ export function AddSensor() {
 
                 <div className="flex flex-col">
                     <label htmlFor="longitude" className="mb-1 font-medium">Longitude</label>
-                    <input type="text" id="longitude" name="longitude"
+                    <input type="text"
+                           id="longitude"
+                           name="longitude"
                            className="border rounded px-3 py-2"
                            placeholder="Enter Longitude" />
                 </div>

@@ -1,13 +1,19 @@
 import { Dashboard } from "@/components/Dashboard.tsx";
 import { AddSensor } from "@/components/AddSensor.tsx";
+import { RemoveSensor} from "@/components/RemoveSensor.tsx";
 
 export const Home = () => {
     return (
         <div className="flex flex-col md:flex-row h-full w-full p-4">
-            {/* Left panel — AddSensor */}
-            <div className="w-full md:w-1/5 md:min-w-[250px] bg-gray-100 mb-4 md:mb-0 md:mr-4">
-                <AddSensor />
-            </div>
+
+                {/* Left panel — AddSensor */}
+                <div className="w-full md:w-1/5 flex-col md:min-w-[250px] space-y-8 mb-4 md:mb-0 md:mr-4 pb-4">
+                    <AddSensor />
+                    <RemoveSensor />
+                </div>
+
+
+
 
             {/* Right panel — Dashboards */}
             <div className="dashboard-container flex flex-col gap-3 justify-center items-center grow h-full p-2 ">
@@ -21,5 +27,5 @@ export const Home = () => {
                 />
             </div>
         </div>
-    );
+            );
 };
