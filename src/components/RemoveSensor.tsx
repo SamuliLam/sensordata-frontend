@@ -1,7 +1,15 @@
 import * as React from "react";
+import { useState } from "react";
 
+type SensorErrors = {
+    sensorId?: string;
+}
 
 export function RemoveSensor() {
+    const [sensorRemoved, setSensorRemoved] = useState(false);
+    const [sensorRemoveFailed, setSensorRemoveFailed] = useState(false);
+    const [errors, setErrors] = useState<SensorErrors>({});
+
 
 
     const handleRemove = async (e) => {
@@ -9,17 +17,35 @@ export function RemoveSensor() {
 
         const formData = new FormData(e.target);
         const sensorId = formData.get("sensorId");
+        const newErrors : SensorErrors = {};
+
+
+        if (!sensorId) newErrors.sensorId = "Sensor ID is required";
+
+        if(Object.keys(newErrors).length !== 0) {
+            setErrors(newErrors);
+            console.log("Form validation errors", newErrors);
+        } else {
+            setErrors({})
+            console.log("Form validated and submitted", formData)
+        }
 
         try {
             const response = await fetch(`http://localhost:8080/api/sensors/${sensorId}`, {
                 method: "DELETE",
             });
 
+            const result = await response.json();
+
             if (!response.ok) {
-                throw new Error("Failed to remove sensor");
+                setSensorRemoveFailed(true);
+                console.error("Error: " + result.message);
+                return;
             }
 
             console.log("Sensor removed successfully");
+            setSensorRemoved(true);
+            setSensorRemoveFailed(false)
         } catch (error) {
             console.error("Error removing sensor:", error);
         }
@@ -37,16 +63,19 @@ export function RemoveSensor() {
                         id="sensorId"
                         name="sensorId"
                         className="w-full border border-gray-300 p-2 border rounded "
-                        required
                         placeholder="Enter Sensor ID"
                     />
                 </div>
+                {errors.sensorId && <p className="text-red-500 text-sm">{errors.sensorId}</p>}
+
                 <button
                     type="submit"
                     className="bg-[var(--color-Supportive-frieza)] font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
                 >
                     Remove Sensor
                 </button>
+                {sensorRemoved && <p className="text-green-500 text-sm mt-2">Sensor removed successfully!</p>}
+                {sensorRemoveFailed && <p className="text-red-500 text-sm mt-2">Failed to remove sensor.</p>}
             </form>
         </div>
     )

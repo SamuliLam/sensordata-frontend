@@ -14,6 +14,8 @@ export function AddSensor() {
     const [selectedSensorType, setSelectedSensorType] = useState("Select sensor type");
     const sensorTypes = ["Urban", "Viherpysakki", "Ymparistomoduuli", "Suvilahti"];
     const [errors, setErrors] = useState<SensorErrors>({});
+    const [sensorAdded, setSensorAdded] = useState(false);
+    const [sensorAddFailed, setSensorAddFailed] = useState(false);
 
 
     const handleSubmit = async (e) => {
@@ -56,11 +58,18 @@ export function AddSensor() {
                 body: JSON.stringify(payload),
             });
 
+
+            const result = await response.json();
+
             if (!response.ok) {
-                throw new Error("Failed to add sensor");
+                setSensorAddFailed(true);
+                console.error("Error: " + result.message);
+                return;
             }
 
             console.log("Sensor added successfully");
+            setSensorAdded(true);
+            setSensorAddFailed(false)
         } catch (error) {
             console.error("Error:", error);
         }
@@ -136,6 +145,8 @@ export function AddSensor() {
                 >
                     Add Sensor
                 </button>
+                {sensorAdded && <p className="text-green-500 text-sm mt-2">Sensor added successfully!</p>}
+                {sensorAddFailed && <p className="text-red-500 text-sm mt-2">Failed to add sensor.</p>}
             </form>
         </div>
     );
