@@ -1,6 +1,7 @@
 import { Dashboard } from "@/components/Dashboard.tsx";
 import { AddSensor } from "@/components/AddSensor.tsx";
 import { RemoveSensor} from "@/components/RemoveSensor.tsx";
+import { LoadHistory} from "@/components/LoadHistory.tsx";
 
 export const Home = () => {
     return (
@@ -10,6 +11,7 @@ export const Home = () => {
                 <div className="w-full md:w-1/5 flex-col md:min-w-[250px] space-y-8 mb-4 md:mb-0 md:mr-4 pb-4">
                     <AddSensor />
                     <RemoveSensor />
+                    <LoadHistory />
                 </div>
 
 
