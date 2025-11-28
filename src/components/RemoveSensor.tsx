@@ -7,8 +7,8 @@ type SensorErrors = {
 
 export function RemoveSensor() {
     const [sensorRemoved, setSensorRemoved] = useState(false);
-    const [sensorRemoveFailed, setSensorRemoveFailed] = useState(false);
     const [errors, setErrors] = useState<SensorErrors>({});
+    const [message, setMessage] = useState("");
 
 
 
@@ -38,16 +38,18 @@ export function RemoveSensor() {
             const result = await response.json();
 
             if (!response.ok) {
-                setSensorRemoveFailed(true);
+                setMessage("Failed to remove sensor.")
+                setSensorRemoved(false)
                 console.error("Error: " + result.message);
                 return;
             }
 
             console.log("Sensor removed successfully");
+            setMessage("Sensor removed successfully!")
             setSensorRemoved(true);
-            setSensorRemoveFailed(false)
         } catch (error) {
             console.error("Error removing sensor:", error);
+            setMessage("Failed to remove sensor.")
         }
     }
     return (
@@ -74,8 +76,8 @@ export function RemoveSensor() {
                 >
                     Remove Sensor
                 </button>
-                {sensorRemoved && <p className="text-green-500 text-sm mt-2">Sensor removed successfully!</p>}
-                {sensorRemoveFailed && <p className="text-red-500 text-sm mt-2">Failed to remove sensor.</p>}
+                {sensorRemoved && <p className="text-green-500 text-sm mt-2">{message}</p>}
+                {!sensorRemoved && <p className="text-red-500 text-sm mt-2">{message}</p>}
             </form>
         </div>
     )
