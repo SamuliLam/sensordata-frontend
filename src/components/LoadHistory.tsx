@@ -24,6 +24,14 @@ export function LoadHistory(){
             const data = await response.json();
             setMessage("Historical data loaded successfully");
             setHistoryLoaded(true);
+
+            if  (!response.ok){
+                setHistoryLoaded(false);
+                console.error("Error: " + data.message);
+                setMessage("Failed to load historical data");
+                setLoading(false)
+                return;
+            }
         } catch (error) {
             console.error("Error loading historical data:", error);
             setMessage("Failed to load historical data");
