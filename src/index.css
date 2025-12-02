@@ -8,8 +8,8 @@
     display: flex;
     flex-direction: column;
     font-family: "DM Sans", sans-serif;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    width: 100%;
     margin: 0;
     background-color: var(--color-Main-goku);
 }

@@ -20,7 +20,7 @@ export const Home = () => {
 
 
             {/* Right panel — Dashboards */}
-            <div className="dashboard-container flex flex-col gap-3 justify-center items-center grow h-full p-2 ">
+            <div className="dashboard-container flex flex-col gap-3 justify-center items-center grow p-2 ">
                 <Dashboard
                     styles="w-full md:w-4/5"
                     dsb_link={map_dsb}
