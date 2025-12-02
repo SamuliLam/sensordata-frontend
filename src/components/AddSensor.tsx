@@ -77,6 +77,7 @@ export function AddSensor({onSensorAdded}) {
 
             if (!response.ok) {
                 setSensorAddFailed(true);
+                setSensorAdded(false);
                 console.error("Error: " + result.message);
                 return;
             }
