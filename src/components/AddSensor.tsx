@@ -1,6 +1,8 @@
 import * as React from "react";
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { useState } from "react";
+import { Button } from "@moondesignsystem/react";
+
 
 type SensorErrors = {
     sensorId?: string;
@@ -164,7 +166,7 @@ export function AddSensor({onSensorAdded}) {
                 <div className="my-1 h-[3px] bg-gray-300"/>
 
 
-                <button
+                <Button
                     type="submit"
                     disabled={!isFormValid}
                     className={`font-semibold text-white rounded px-4 py-2 
@@ -175,7 +177,7 @@ export function AddSensor({onSensorAdded}) {
                     }`}
                 >
                     Add Sensor
-                </button>
+                </Button>
 
                 {sensorAdded && (
                     <p className="text-green-500 text-sm mt-2">Sensor added successfully!</p>

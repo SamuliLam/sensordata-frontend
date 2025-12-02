@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-
+import { Button } from "@moondesignsystem/react";
 
 
 
@@ -86,12 +86,12 @@ export function LoadHistory(){
 
     return(
 
-            <button
+            <Button
                 onClick={handleLoadHistory}
                 disabled={loading}
                 className="bg-Main-piccolo font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
             >
                 {loading ? "Loading..." : "Load History"}
-            </button>
+            </Button>
     )
 }
