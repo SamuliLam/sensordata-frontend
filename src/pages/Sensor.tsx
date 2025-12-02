@@ -7,7 +7,7 @@ interface SensorDataProps {
 export const SensorData = ({ styles }: { styles?: string }) => {
   //const { sensorId } = useParams<{ sensorId: string }>();
   const defaultClasses = "grow rounded-md shadow-light-shadow-sm h-full";
-  const dsb_link = `http://localhost:3000/dashboard/snapshot/v3UwaQsLVEH3dUdgQtnKhGJZZv9GjZVk`;
+  const dsb_link = `http://localhost:3000/dashboard/snapshot/3I3cYXOm0k0vDa0BxuWQwVd1eUoIbPX7`;
 
   return (
     <iframe

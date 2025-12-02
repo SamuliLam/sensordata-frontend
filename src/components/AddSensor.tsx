@@ -12,7 +12,7 @@ type SensorErrors = {
 
 export function AddSensor() {
     const [selectedSensorType, setSelectedSensorType] = useState("Select sensor type");
-    const sensorTypes = ["Urban", "Viherpysakki", "Ymparistomoduuli", "Suvilahti"];
+    const sensorTypes = ["urban", "viherpysakki", "ymparistomoduuli", "suvilahti"];
     const [errors, setErrors] = useState<SensorErrors>({});
     const [sensorAdded, setSensorAdded] = useState(false);
     const [sensorAddFailed, setSensorAddFailed] = useState(false);

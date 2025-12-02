@@ -4,6 +4,8 @@ import { RemoveSensor} from "@/components/RemoveSensor.tsx";
 import { LoadHistory} from "@/components/LoadHistory.tsx";
 
 export const Home = () => {
+    const map_dsb = "http://localhost:3000/d-solo/adkrpm5/sensor-dashboard-copy?orgId=1&from=1762994512250&to=1763016112250&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true"
+    const table_dsb = "http://localhost:3000/d-solo/adqrfsn/new-dashboard?orgId=1&from=1764139653048&to=1764141778639&timezone=browser&var-SensorID=DD42FA122ACD&tab=queries&showCategory=Panel%20options&var-query0=ymparistomoduuli&var-SensorType=ymparistomoduuli&editIndex=0&theme=light&panelId=2&__feature.dashboardSceneSolo=true"
     return (
         <div className="flex flex-col md:flex-row h-full w-full p-4">
 
@@ -21,11 +23,11 @@ export const Home = () => {
             <div className="dashboard-container flex flex-col gap-3 justify-center items-center grow h-full p-2 ">
                 <Dashboard
                     styles="w-full md:w-4/5"
-                    dsb_link="http://localhost:3000/d-solo/f48bae0c-e998-4040-b62a-fd8f5d979c90/test1?orgId=1&from=1761095291659&to=1761116891659&timezone=browser&theme=light&showCategory=Map%20view&panelId=2&__feature.dashboardSceneSolo=true"
+                    dsb_link={map_dsb}
                 />
                 <Dashboard
                     styles="w-full md:w-4/5"
-                    dsb_link="http://localhost:3000/d-solo/f48bae0c-e998-4040-b62a-fd8f5d979c90/test1?orgId=1&from=1761094002550&to=1761115602550&timezone=browser&theme=light&panelId=1&__feature.dashboardSceneSolo=true"
+                    dsb_link={table_dsb}
                 />
             </div>
         </div>
