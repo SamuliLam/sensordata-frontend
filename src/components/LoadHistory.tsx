@@ -84,26 +84,14 @@ export function LoadHistory(){
         }
     }
 
-
-
-
-
     return(
-        <div className="remove-sensor-panel p-4 border rounded-lg shadow-sm bg-white dark:bg-gray-800">
-            <h2 className="text-lg font-semibold mb-4">Load historical sensor data</h2>
+
             <button
                 onClick={handleLoadHistory}
                 disabled={loading}
-                className=" w-full bg-[var(--color-Supportive-frieza)] font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
+                className="bg-Main-piccolo font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
             >
                 {loading ? "Loading..." : "Load History"}
             </button>
-            {historyLoaded && (<p className="text-sm text-green-500 mt-2">{message}</p>)}
-            {!historyLoaded && message && (<p className="text-sm text-red-500 mt-2">{message}</p>)}
-
-
-        </div>
-
-
-            )
-            }
+    )
+}

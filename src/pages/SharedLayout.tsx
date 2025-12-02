@@ -32,7 +32,7 @@ export const SharedLayout = () => {
                     </ul>
                 </nav>
             </header>
-            <main className="flex items-center justify-center grow">
+            <main className="flex flex-col items-center justify-center grow">
                 <Outlet/>
             </main>
             <footer className={"flex items-center justify-center bg-Main-gohan"}>

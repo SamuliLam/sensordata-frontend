@@ -72,7 +72,7 @@ export function RemoveSensor() {
 
                 <button
                     type="submit"
-                    className="bg-[var(--color-Supportive-frieza)] font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
+                    className="bg-Main-piccolo font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
                 >
                     Remove Sensor
                 </button>

@@ -112,7 +112,7 @@ export function AddSensor() {
 
                 <Menu>
                     <MenuButton
-                        className="inline-flex justify-center items-center gap-2 rounded-md bg-[var(--color-Supportive-frieza)] px-3 py-1.5 hover:bg-[var(--color-Supportive-whis-10)] text-white shadow-inner shadow-white/10"
+                        className="inline-flex justify-center items-center gap-2 rounded-md bg-Main-piccolo px-3 py-1.5 text-Main-goten font-semibold"
                     >
                         {selectedSensorType}
                     </MenuButton>
@@ -141,7 +141,7 @@ export function AddSensor() {
 
                 <button
                     type="submit"
-                    className="bg-[var(--color-Supportive-frieza)] font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
+                    className="bg-Main-piccolo font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
                 >
                     Add Sensor
                 </button>
