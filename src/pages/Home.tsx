@@ -11,9 +11,9 @@ export const Home = () => {
         setDashboardRefreshKey(prev => prev + 1);
     };
 
-    const map_dsb = "http://localhost:3000/d-solo/adkrpm5/sensor-dashboard-copy?orgId=1&from=1762994512250&to=1763016112250&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true";
+    const map_dsb = "http://localhost:3000/d-solo/ad8fclh/main-dashboard?orgId=1&from=1764683710414&to=1764705310414&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true";
 
-    const table_dsb = "http://localhost:3000/d-solo/adqrfsn/new-dashboard?orgId=1&from=1764139653048&to=1764141778639&timezone=browser&var-SensorID=DD42FA122ACD&tab=queries&showCategory=Panel%20options&var-query0=ymparistomoduuli&var-SensorType=ymparistomoduuli&editIndex=0&theme=light&panelId=2&__feature.dashboardSceneSolo=true";
+    const table_dsb = "http://localhost:3000/d-solo/ad8fclh/main-dashboard?orgId=1&from=1764683710414&to=1764705310414&timezone=browser&theme=light&panelId=panel-3&__feature.dashboardSceneSolo=true";
 
     return (
         <div className="flex flex-col md:flex-row w-full grow p-4">
