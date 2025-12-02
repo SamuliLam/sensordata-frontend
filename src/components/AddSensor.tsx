@@ -10,12 +10,23 @@ type SensorErrors = {
 };
 
 
-export function AddSensor() {
+
+export function AddSensor({onSensorAdded}) {
     const [selectedSensorType, setSelectedSensorType] = useState("Select sensor type");
     const sensorTypes = ["urban", "viherpysakki", "ymparistomoduuli", "suvilahti"];
     const [errors, setErrors] = useState<SensorErrors>({});
     const [sensorAdded, setSensorAdded] = useState(false);
     const [sensorAddFailed, setSensorAddFailed] = useState(false);
+    const [sensorId, setSensorId] = useState("");
+    const [latitude, setLatitude] = useState("");
+    const [longitude, setLongitude] = useState("");
+
+    const isFormValid =
+        sensorId.trim() !== "" &&
+        latitude.trim() !== "" &&
+        longitude.trim() !== "" &&
+        selectedSensorType !== "Select sensor type";
+
 
 
     const handleSubmit = async (e) => {
@@ -24,6 +35,7 @@ export function AddSensor() {
         const formData = new FormData(e.target);
 
         const newErrors : SensorErrors = {};
+
 
         if (!formData.get("sensorId")) newErrors.sensorId = "Sensor ID is required";
 
@@ -67,9 +79,15 @@ export function AddSensor() {
                 return;
             }
 
+
             console.log("Sensor added successfully");
             setSensorAdded(true);
             setSensorAddFailed(false)
+            onSensorAdded?.();
+            setSensorId("");
+            setLatitude("");
+            setLongitude("");
+            setSelectedSensorType("Select sensor type");
         } catch (error) {
             console.error("Error:", error);
         }
@@ -85,8 +103,10 @@ export function AddSensor() {
                     <input type="text"
                            id="sensor_id"
                            name="sensorId"
+                           value={sensorId}
+                           onChange={(e) => setSensorId(e.target.value)}
                            className="border rounded px-3 py-2"
-                           placeholder="Enter Sensor ID" />
+                           placeholder="Enter Sensor ID"/>
                 </div>
                 {errors.sensorId && <p className="text-red-500 text-sm">{errors.sensorId}</p>}
 
@@ -95,8 +115,10 @@ export function AddSensor() {
                     <input type="text"
                            id="latitude"
                            name="latitude"
+                           value={latitude}
+                           onChange={(e) => setLatitude(e.target.value)}
                            className="border rounded px-3 py-2"
-                           placeholder="Enter Latitude" />
+                           placeholder="Enter Latitude"/>
                 </div>
                 {errors.latitude && <p className="text-red-500 text-sm">{errors.latitude}</p>}
 
@@ -105,8 +127,10 @@ export function AddSensor() {
                     <input type="text"
                            id="longitude"
                            name="longitude"
+                           value={longitude}
+                           onChange={(e) => setLongitude(e.target.value)}
                            className="border rounded px-3 py-2"
-                           placeholder="Enter Longitude" />
+                           placeholder="Enter Longitude"/>
                 </div>
                 {errors.longitude && <p className="text-red-500 text-sm">{errors.longitude}</p>}
 
@@ -137,16 +161,30 @@ export function AddSensor() {
                     </MenuItems>
                 </Menu>
 
-                <div className="my-1 h-[3px] bg-gray-300" />
+                <div className="my-1 h-[3px] bg-gray-300"/>
+
 
                 <button
                     type="submit"
-                    className="bg-Main-piccolo font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
+                    disabled={!isFormValid}
+                    className={`font-semibold text-white rounded px-4 py-2 
+        ${
+                        isFormValid
+                            ? "bg-[var(--color-Supportive-frieza)] hover:bg-[var(--color-Supportive-whis-10)]"
+                            : "bg-gray-400 cursor-not-allowed"
+                    }`}
                 >
                     Add Sensor
                 </button>
-                {sensorAdded && <p className="text-green-500 text-sm mt-2">Sensor added successfully!</p>}
-                {sensorAddFailed && <p className="text-red-500 text-sm mt-2">Failed to add sensor.</p>}
+
+                {sensorAdded && (
+                    <p className="text-green-500 text-sm mt-2">Sensor added successfully!</p>
+                )}
+
+                {sensorAddFailed && (
+                    <p className="text-red-500 text-sm mt-2">Failed to add sensor.</p>
+                )}
+
             </form>
         </div>
     );

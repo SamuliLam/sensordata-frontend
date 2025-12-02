@@ -5,7 +5,7 @@ type SensorErrors = {
     sensorId?: string;
 }
 
-export function RemoveSensor() {
+export function RemoveSensor({onSensorRemoved}) {
     const [sensorRemoved, setSensorRemoved] = useState(false);
     const [errors, setErrors] = useState<SensorErrors>({});
     const [message, setMessage] = useState("");
@@ -47,6 +47,7 @@ export function RemoveSensor() {
             console.log("Sensor removed successfully");
             setMessage("Sensor removed successfully!")
             setSensorRemoved(true);
+            onSensorRemoved?.();
         } catch (error) {
             console.error("Error removing sensor:", error);
             setMessage("Failed to remove sensor.")
