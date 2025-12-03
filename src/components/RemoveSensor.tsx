@@ -1,5 +1,16 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input";
+import {
+    Field,
+    FieldContent,
+    FieldDescription,
+    FieldGroup,
+    FieldLabel,
+    FieldLegend,
+    FieldSeparator,
+    FieldSet,
+} from "@/components/ui/field"
 
 type SensorErrors = {
     sensorId?: string;
@@ -55,13 +66,13 @@ export function RemoveSensor({onSensorRemoved}) {
     }
     return (
         <div className="remove-sensor-panel p-4 border rounded-lg shadow-sm bg-white dark:bg-gray-800">
-            <h2 className="text-lg font-semibold mb-4">Remove Sensor</h2>
+            <FieldLegend className="text-lg font-semibold mb-4">Remove Sensor</FieldLegend>
             <form onSubmit={handleRemove} className="flex flex-col gap-4">
                 <div>
-                    <label htmlFor="sensorId" className="mb-1 font-medium">
+                    <FieldLabel className="mb-1 font-medium">
                         Sensor ID
-                    </label>
-                    <input
+                    </FieldLabel>
+                    <Input
                         type="text"
                         id="sensorId"
                         name="sensorId"

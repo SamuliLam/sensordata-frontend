@@ -1,6 +1,25 @@
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input";
+import {
+    Field,
+    FieldContent,
+    FieldDescription,
+    FieldGroup,
+    FieldLabel,
+    FieldLegend,
+    FieldSeparator,
+    FieldSet,
+} from "@/components/ui/field"
+
+import {
+    Select,
+    SelectContent,
+    SelectItem,
+    SelectTrigger,
+    SelectValue,
+} from "@/components/ui/select"
 
 
 type SensorErrors = {
@@ -13,7 +32,7 @@ type SensorErrors = {
 
 
 export function AddSensor({onSensorAdded}) {
-    const [selectedSensorType, setSelectedSensorType] = useState("Select sensor type");
+    const [selectedSensorType, setSelectedSensorType] = useState("");
     const sensorTypes = ["urban", "viherpysakki", "ymparistomoduuli", "suvilahti"];
     const [errors, setErrors] = useState<SensorErrors>({});
     const [sensorAdded, setSensorAdded] = useState(false);
@@ -26,7 +45,7 @@ export function AddSensor({onSensorAdded}) {
         sensorId.trim() !== "" &&
         latitude.trim() !== "" &&
         longitude.trim() !== "" &&
-        selectedSensorType !== "Select sensor type";
+        selectedSensorType !== "";
 
 
 
@@ -97,12 +116,12 @@ export function AddSensor({onSensorAdded}) {
 
     return (
         <div className="add-sensor-panel p-4 border rounded-lg shadow-sm bg-white dark:bg-gray-800">
-            <h2 className="text-lg font-semibold mb-4">Add New Sensor</h2>
+            <FieldLegend className="text-lg font-semibold mb-4">Add New Sensor</FieldLegend>
 
             <form className="flex flex-col gap-4" onSubmit={handleSubmit}>
                 <div className="flex flex-col">
-                    <label htmlFor="sensor_id" className="mb-1 font-medium">Sensor ID</label>
-                    <input type="text"
+                    <FieldLabel htmlFor="sensor_id" className="mb-1 font-medium">Sensor ID</FieldLabel>
+                    <Input type="text"
                            id="sensor_id"
                            name="sensorId"
                            value={sensorId}
@@ -112,9 +131,10 @@ export function AddSensor({onSensorAdded}) {
                 </div>
                 {errors.sensorId && <p className="text-red-500 text-sm">{errors.sensorId}</p>}
 
+
                 <div className="flex flex-col">
-                    <label htmlFor="latitude" className="mb-1 font-medium">Latitude</label>
-                    <input type="text"
+                    <FieldLabel htmlFor="latitude" className="mb-1 font-medium">Latitude</FieldLabel>
+                    <Input type="text"
                            id="latitude"
                            name="latitude"
                            value={latitude}
@@ -125,8 +145,8 @@ export function AddSensor({onSensorAdded}) {
                 {errors.latitude && <p className="text-red-500 text-sm">{errors.latitude}</p>}
 
                 <div className="flex flex-col">
-                    <label htmlFor="longitude" className="mb-1 font-medium">Longitude</label>
-                    <input type="text"
+                    <FieldLabel htmlFor="longitude" className="mb-1 font-medium">Longitude</FieldLabel>
+                    <Input type="text"
                            id="longitude"
                            name="longitude"
                            value={longitude}
@@ -136,35 +156,28 @@ export function AddSensor({onSensorAdded}) {
                 </div>
                 {errors.longitude && <p className="text-red-500 text-sm">{errors.longitude}</p>}
 
-                <Menu>
-                    <MenuButton
-                        className="inline-flex justify-center items-center gap-2 rounded-md bg-primary text-primary-foreground px-3 py-1.5"
+                <Select
+                    value={selectedSensorType}
+                    onValueChange={setSelectedSensorType}
+                >
+                    <SelectTrigger
+                        className="w-full inline-flex justify-center items-center gap-2 rounded-md bg-primary text-primary-foreground px-3 py-1.5"
                     >
-                        {selectedSensorType}
-                    </MenuButton>
-                    {errors.sensorType && <p className="text-red-500 text-sm mt-1">{errors.sensorType}</p>}
+                        <SelectValue placeholder="Select sensor type" />
+                    </SelectTrigger>
 
-                    <MenuItems
-                        transition
-                        anchor="bottom end"
-                        className="w-52 origin-top-right rounded-xl border border-gray-200 bg-white p-1 text-gray-900 shadow-lg"
-                    >
+                    <SelectContent>
                         {sensorTypes.map((item) => (
-                            <MenuItem key={item}>
-                                <button
-                                    type="button"
-                                    onClick={() => setSelectedSensorType(item)}
-                                    className="w-full text-left px-3 py-1.5 rounded-lg data-focus:bg-gray-100"
-                                >
-                                    {item}
-                                </button>
-                            </MenuItem>
+                            <SelectItem key={item} value={item}>
+                                {item.charAt(0).toUpperCase() + item.slice(1)}
+                            </SelectItem>
                         ))}
-                    </MenuItems>
-                </Menu>
+                    </SelectContent>
+                </Select>
 
-                <div className="my-1 h-[3px] bg-gray-300"/>
 
+
+                <FieldSeparator />
 
                 <Button
                     type="submit"
