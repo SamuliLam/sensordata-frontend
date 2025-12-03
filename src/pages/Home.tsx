@@ -56,7 +56,7 @@ export const Home = () => {
         <div className="flex flex-col md:flex-row w-full grow p-4">
 
             {/* Left panel — Add/Remove Sensor */}
-            <div className="w-full md:w-1/5 flex-col md:min-w-[250px] space-y-8 mb-4 md:mb-0 md:mr-4">
+            <div className="w-full md:w-1/5 flex-col md:min-w-[250px] space-y-8 mb-4 md:mb-0 md:mr-4 p-3">
 
                 {/* Pass refresh callback to AddSensor */}
                 <AddSensor onSensorAdded={refreshEverything} />
@@ -64,7 +64,7 @@ export const Home = () => {
             </div>
 
             {/* Right panel — Dashboards + DataTable */}
-            <div className="dashboard-container flex flex-col gap-3 items-center grow mx-auto md:max-w-6/9">
+            <div className="dashboard-container flex flex-col gap-3 items-center grow mx-auto md:max-w-7/9 p-2" >
                 <div className="flex self-start ">
                     <LoadHistory />
                 </div>
