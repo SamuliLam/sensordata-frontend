@@ -12,10 +12,12 @@ export const SensorData = ({ styles }: { styles?: string }) => {
   const dsb_link = `http://localhost:3000/d/ad6d5kp/sensori-kohtainen-nakyma?orgId=1&timezone=browser&var-SensorID=${sensorId}`;
 
   return (
-    <iframe
-      title="Dashboard"
-      src={dsb_link}
-      className={`${defaultClasses} ${styles}`}
-    ></iframe>
+      <div className="dashboard-container flex flex-col gap-3 justify-center items-center grow w-full p-2">
+          <iframe
+              title="Dashboard"
+              src={dsb_link}
+              className={`${defaultClasses} ${styles} w-full`}
+          ></iframe>
+      </div>
   );
 };
