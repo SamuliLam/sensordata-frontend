@@ -1,11 +1,25 @@
-import * as React from "react";
 import { useState } from "react";
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input";
+import {
+    Field,
+    FieldContent,
+    FieldDescription,
+    FieldGroup,
+    FieldLabel,
+    FieldLegend,
+    FieldSeparator,
+    FieldSet,
+} from "@/components/ui/field"
+import { useQueryClient } from '@tanstack/react-query';
+
 
 type SensorErrors = {
     sensorId?: string;
 }
 
-export function RemoveSensor() {
+export function RemoveSensor({onSensorRemoved}) {
+    const queryClient = useQueryClient();
     const [sensorRemoved, setSensorRemoved] = useState(false);
     const [errors, setErrors] = useState<SensorErrors>({});
     const [message, setMessage] = useState("");
@@ -47,20 +61,23 @@ export function RemoveSensor() {
             console.log("Sensor removed successfully");
             setMessage("Sensor removed successfully!")
             setSensorRemoved(true);
+            onSensorRemoved?.();
+            queryClient.invalidateQueries(["sensor_metadata"]);
         } catch (error) {
             console.error("Error removing sensor:", error);
             setMessage("Failed to remove sensor.")
         }
+
     }
     return (
         <div className="remove-sensor-panel p-4 border rounded-lg shadow-sm bg-white dark:bg-gray-800">
-            <h2 className="text-lg font-semibold mb-4">Remove Sensor</h2>
+            <FieldLegend className="text-lg font-semibold mb-4">Remove Sensor</FieldLegend>
             <form onSubmit={handleRemove} className="flex flex-col gap-4">
                 <div>
-                    <label htmlFor="sensorId" className="mb-1 font-medium">
+                    <FieldLabel className="mb-1 font-medium">
                         Sensor ID
-                    </label>
-                    <input
+                    </FieldLabel>
+                    <Input
                         type="text"
                         id="sensorId"
                         name="sensorId"
@@ -70,12 +87,11 @@ export function RemoveSensor() {
                 </div>
                 {errors.sensorId && <p className="text-red-500 text-sm">{errors.sensorId}</p>}
 
-                <button
+                <Button
                     type="submit"
-                    className="bg-[var(--color-Supportive-frieza)] font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
                 >
                     Remove Sensor
-                </button>
+                </Button>
                 {sensorRemoved && <p className="text-green-500 text-sm mt-2">{message}</p>}
                 {!sensorRemoved && <p className="text-red-500 text-sm mt-2">{message}</p>}
             </form>
