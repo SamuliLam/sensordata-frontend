@@ -1,7 +1,6 @@
-import * as React from "react";
 import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { useState } from "react";
-import { Button } from "@moondesignsystem/react";
+import { Button } from "@/components/ui/button"
 
 
 type SensorErrors = {
@@ -139,7 +138,7 @@ export function AddSensor({onSensorAdded}) {
 
                 <Menu>
                     <MenuButton
-                        className="inline-flex justify-center items-center gap-2 rounded-md bg-Main-piccolo px-3 py-1.5 text-Main-goten font-semibold"
+                        className="inline-flex justify-center items-center gap-2 rounded-md bg-primary text-primary-foreground px-3 py-1.5"
                     >
                         {selectedSensorType}
                     </MenuButton>
@@ -170,12 +169,6 @@ export function AddSensor({onSensorAdded}) {
                 <Button
                     type="submit"
                     disabled={!isFormValid}
-                    className={`font-semibold text-white rounded px-4 py-2 
-        ${
-                        isFormValid
-                            ? "bg-[var(--color-Supportive-frieza)] hover:bg-[var(--color-Supportive-whis-10)]"
-                            : "bg-gray-400 cursor-not-allowed"
-                    }`}
                 >
                     Add Sensor
                 </Button>

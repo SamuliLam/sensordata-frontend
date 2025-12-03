@@ -1,6 +1,5 @@
-import * as React from "react";
 import { useState } from "react";
-import { Button } from "@moondesignsystem/react";
+import { Button } from "@/components/ui/button"
 
 type SensorErrors = {
     sensorId?: string;
@@ -74,7 +73,6 @@ export function RemoveSensor({onSensorRemoved}) {
 
                 <Button
                     type="submit"
-                    className="bg-Main-piccolo font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
                 >
                     Remove Sensor
                 </Button>

@@ -1,19 +1,16 @@
-import * as React from "react";
 import { useState } from "react";
-import { Button } from "@moondesignsystem/react";
-
-
-
+import { Button } from "@/components/ui/button"
+import { Spinner } from "@/components/ui/spinner"
 
 export function LoadHistory(){
     const [loading, setLoading] = useState(false);
     const [message, setMessage] = useState("");
-    const [historyLoaded, setHistoryLoaded] = useState(false);
+    const [historyLoaded, setHistoryLoaded] = useState<null | boolean>(null);
 
     async function handleLoadHistory(){
         setMessage("");
         setLoading(true);
-        setHistoryLoaded(false);
+        setHistoryLoaded(null);
 
         try {
             const response = await fetch("http://localhost:8080/api/history", {
@@ -84,14 +81,15 @@ export function LoadHistory(){
         }
     }
 
-    return(
+    let buttonText = "Load History";
+    if (loading) buttonText = "Loading...";
+    else if (historyLoaded === true) buttonText = "History Loaded ✔";
+    else if (historyLoaded === false) buttonText = "Failed – Try Again";
 
-            <Button
-                onClick={handleLoadHistory}
-                disabled={loading}
-                className="bg-Main-piccolo font-semibold text-white rounded px-4 py-2 hover:bg-[var(--color-Supportive-whis-10)]"
-            >
-                {loading ? "Loading..." : "Load History"}
-            </Button>
-    )
+    return (
+        <Button onClick={handleLoadHistory} disabled={loading} variant="default">
+            {loading && <Spinner className="mr-2 " />}
+            {buttonText}
+        </Button>
+    );
 }
