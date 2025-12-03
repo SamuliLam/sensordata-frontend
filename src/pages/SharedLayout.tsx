@@ -2,8 +2,11 @@ import {Outlet} from "react-router-dom";
 import {SearchIcon} from "lucide-react";
 import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/input-group.tsx";
 import {HoverSlideAnimation} from "@/components/HoverSlideAnimation.tsx";
+import {useSearch} from "@/contexts/SearchContext";
 
 export const SharedLayout = () => {
+    const { searchValue, setSearchValue } = useSearch();
+
     return (
         <>
             <header className={"p-2 bg-primary text-primary-foreground text-2xl font-bold"}>
@@ -23,7 +26,12 @@ export const SharedLayout = () => {
                         </li>
                         <li>
                             <InputGroup className={"bg-secondary"}>
-                                <InputGroupInput  placeholder="Search by id, city.."/>
+                                <InputGroupInput 
+                                    className="text-black" 
+                                    placeholder="Search by id, city.."
+                                    value={searchValue}
+                                    onChange={(e) => setSearchValue(e.target.value)}
+                                />
                                 <InputGroupAddon>
                                     <SearchIcon/>
                                 </InputGroupAddon>

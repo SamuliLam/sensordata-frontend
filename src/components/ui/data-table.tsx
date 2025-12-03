@@ -1,9 +1,13 @@
 "use client"
 
+import * as React from "react"
 import {
     type ColumnDef,
+    type SortingState,
     flexRender,
     getCoreRowModel,
+    getPaginationRowModel,
+    getSortedRowModel,
     useReactTable,
 } from "@tanstack/react-table"
 
@@ -19,32 +23,82 @@ import {
 interface DataTableProps<TData, TValue> {
     columns: ColumnDef<TData, TValue>[]
     data: TData[]
+    searchFilter?: string
+    onRowClick?: (row: TData) => void
 }
 
 export function DataTable<TData, TValue>({
                                              columns,
                                              data,
+                                             searchFilter = "",
+                                             onRowClick,
                                          }: DataTableProps<TData, TValue>) {
+    const [sorting, setSorting] = React.useState<SortingState>([])
+
+
+    // Filter data based on search filter with exact matches first
+    const filteredData = React.useMemo(() => {
+        if (!searchFilter) return data
+        
+        const lowerSearchFilter = searchFilter.toLowerCase()
+        
+        const exactMatches = data.filter((row: any) => {
+            return (
+                String(row.sensor_id).toLowerCase() === lowerSearchFilter ||
+                String(row.sensor_type).toLowerCase() === lowerSearchFilter
+            )
+        })
+        
+        const partialMatches = data.filter((row: any) => {
+            return (
+                (String(row.sensor_id).toLowerCase().includes(lowerSearchFilter) ||
+                String(row.sensor_type).toLowerCase().includes(lowerSearchFilter)) &&
+                !exactMatches.includes(row)
+            )
+        })
+        
+        return [...exactMatches, ...partialMatches]
+    }, [data, searchFilter])
+
     const table = useReactTable({
-        data,
+        data: filteredData,
         columns,
+        onSortingChange: setSorting,
         getCoreRowModel: getCoreRowModel(),
+        getPaginationRowModel: getPaginationRowModel(),
+        getSortedRowModel: getSortedRowModel(),
+        state: {
+            sorting,
+        },
     })
 
     return (
-        <div className="overflow-hidden rounded-md border w-full">
-            <Table>
+        <div>
+            <div className="overflow-hidden rounded-md border w-full">
+                <Table>
                 <TableHeader>
                     {table.getHeaderGroups().map((headerGroup) => (
                         <TableRow key={headerGroup.id}>
                             {headerGroup.headers.map((header) => {
                                 return (
-                                    <TableHead key={header.id}>
+                                    <TableHead 
+                                        key={header.id}
+                                        onClick={header.column.getToggleSortingHandler()}
+                                        style={{ cursor: header.column.getCanSort() ? "pointer" : "default" }}
+                                    >
                                         {header.isPlaceholder
                                             ? null
-                                            : flexRender(
-                                                header.column.columnDef.header,
-                                                header.getContext()
+                                            : (
+                                                <div className="flex items-center gap-2">
+                                                    {flexRender(
+                                                        header.column.columnDef.header,
+                                                        header.getContext()
+                                                    )}
+                                                    <span>
+                                                        {header.column.getIsSorted() === "asc" && " ▲"}
+                                                        {header.column.getIsSorted() === "desc" && " ▼"}
+                                                    </span>
+                                                </div>
                                             )}
                                     </TableHead>
                                 )
@@ -58,6 +112,8 @@ export function DataTable<TData, TValue>({
                             <TableRow
                                 key={row.id}
                                 data-state={row.getIsSelected() && "selected"}
+                                onClick={() => onRowClick?.(row.original)}
+                                className={onRowClick ? "cursor-pointer hover:bg-muted/50 transition-colors" : ""}
                             >
                                 {row.getVisibleCells().map((cell) => (
                                     <TableCell key={cell.id}>
@@ -75,6 +131,7 @@ export function DataTable<TData, TValue>({
                     )}
                 </TableBody>
             </Table>
+            </div>
         </div>
     )
 }

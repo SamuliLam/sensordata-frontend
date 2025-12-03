@@ -6,6 +6,8 @@ import {useState} from "react";
 import {useQuery, useQueryClient} from "@tanstack/react-query";
 import { columns, type Sensor } from "@/components/ui/columns.tsx";
 import { DataTable } from "@/components/ui/data-table.tsx";
+import { useSearch } from "@/contexts/SearchContext";
+import { useNavigate } from "react-router-dom";
 
 
 interface SensorApiResponse {
@@ -31,6 +33,12 @@ export async function getTableData(): Promise<Sensor[]> {
 
 export const Home = () => {
     const queryClient = useQueryClient();
+    const { searchValue } = useSearch();
+    const navigate = useNavigate();
+
+    const handleRowClick = (sensor: Sensor) => {
+        navigate(`/sensors/${sensor.sensor_id}`);
+    };
 
 
     const { data, error, isLoading } = useQuery({
@@ -77,7 +85,12 @@ export const Home = () => {
                 {isLoading && <p>Loading sensor data...</p>}
                 {error && <p>Error fetching sensor data: {(error as Error).message}</p>}
                 {!isLoading && !error && (
-                    <DataTable columns={columns} data={data ?? []} />
+                    <DataTable 
+                        columns={columns} 
+                        data={data ?? []} 
+                        searchFilter={searchValue}
+                        onRowClick={handleRowClick}
+                    />
                 )}
 
             </div>
