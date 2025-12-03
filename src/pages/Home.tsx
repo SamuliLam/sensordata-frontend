@@ -56,7 +56,7 @@ export const Home = () => {
         <div className="flex flex-col md:flex-row w-full grow p-4">
 
             {/* Left panel — Add/Remove Sensor */}
-            <div className="w-full md:w-1/5 flex-col md:min-w-[250px] space-y-8 mb-4 md:mb-0 md:mr-4 p-3">
+            <div className="w-full md:w-1/5 flex-col md:min-w-[250px] space-y-8 mb-4 md:mb-0 md:mr-4 p-3 pt-14">
 
                 {/* Pass refresh callback to AddSensor */}
                 <AddSensor onSensorAdded={refreshEverything} />
