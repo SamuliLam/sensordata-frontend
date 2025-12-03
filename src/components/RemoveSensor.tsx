@@ -1,11 +1,14 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button"
+import { useQueryClient } from '@tanstack/react-query';
+
 
 type SensorErrors = {
     sensorId?: string;
 }
 
 export function RemoveSensor({onSensorRemoved}) {
+    const queryClient = useQueryClient();
     const [sensorRemoved, setSensorRemoved] = useState(false);
     const [errors, setErrors] = useState<SensorErrors>({});
     const [message, setMessage] = useState("");
@@ -48,10 +51,12 @@ export function RemoveSensor({onSensorRemoved}) {
             setMessage("Sensor removed successfully!")
             setSensorRemoved(true);
             onSensorRemoved?.();
+            queryClient.invalidateQueries(["sensor_metadata"]);
         } catch (error) {
             console.error("Error removing sensor:", error);
             setMessage("Failed to remove sensor.")
         }
+
     }
     return (
         <div className="remove-sensor-panel p-4 border rounded-lg shadow-sm bg-white dark:bg-gray-800">
