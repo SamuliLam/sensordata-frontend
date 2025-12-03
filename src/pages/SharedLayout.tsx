@@ -1,31 +1,51 @@
 import {Outlet} from "react-router-dom";
 import {SearchIcon} from "lucide-react";
 import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/input-group.tsx";
+import {HoverSlideAnimation} from "@/components/HoverSlideAnimation.tsx";
+import {useSearch} from "@/contexts/SearchContext";
 
-    export const SharedLayout = () => {
+export const SharedLayout = () => {
+    const { searchValue, setSearchValue } = useSearch();
+
     return (
-        <div className={"min-h-screen flex flex-col bg-gray-50 text-gray-800"}>
-            <header className={"p-4 bg-Main-beerus"}>
+        <>
+            <header className={"p-2 bg-primary text-primary-foreground text-2xl font-bold"}>
                 <nav className={"flex items-center justify-center"}>
-                    <ul className={"flex text-Main-piccolo font-bold text-2xl justify-between mx-auto max-w-4/5 grow"}>
-                        <li><a href="/">Sensor Dashboard</a></li>
-                        <li><a href="/sensors">Sensors</a></li>
+                    <ul className={"flex justify-between mx-auto max-w-4/5 grow items-center"}>
                         <li>
-                            <InputGroup className={"bg-Main-gohan"}>
-                                <InputGroupInput placeholder="Search by id, city.." />
+                            <a href="/" className="relative group">
+                                Sensor Dashboard
+                                <HoverSlideAnimation color="bg-secondary"/>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/sensors" className="relative group">
+                                Sensors
+                                <HoverSlideAnimation color="bg-secondary"/>
+                            </a>
+                        </li>
+                        <li>
+                            <InputGroup className={"bg-secondary"}>
+                                <InputGroupInput 
+                                    className="text-black" 
+                                    placeholder="Search by id, city.."
+                                    value={searchValue}
+                                    onChange={(e) => setSearchValue(e.target.value)}
+                                />
                                 <InputGroupAddon>
-                                    <SearchIcon />
+                                    <SearchIcon/>
                                 </InputGroupAddon>
                             </InputGroup>
                         </li>
                     </ul>
                 </nav>
             </header>
-            <main className="">
+            <main className="flex flex-col items-center justify-center grow">
                 <Outlet/>
             </main>
-            <footer></footer>
-
-        </div>
+            <footer className={"flex items-center justify-center bg-Main-gohan"}>
+                <p>This is the footer</p>
+            </footer>
+        </>
     )
 }
