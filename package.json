@@ -23,13 +23,10 @@
     "clsx": "^2.1.1",
     "install": "^0.13.0",
     "lucide-react": "^0.546.0",
-<<<<<<< HEAD
     "react": "^19.2.0",
-=======
     "npm": "^11.6.4",
     "react": "^19.2.0",
     "react-bootstrap": "^2.10.10",
->>>>>>> a9dd5531441d5eaadc2d52aced85b5be90e3b537
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.9.4",
     "tailwind-merge": "^3.3.1",
