@@ -4,11 +4,9 @@ import { Spinner } from "@/components/ui/spinner"
 
 export function LoadHistory(){
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
     const [historyLoaded, setHistoryLoaded] = useState<null | boolean>(null);
 
     async function handleLoadHistory(){
-        setMessage("");
         setLoading(true);
         setHistoryLoaded(null);
 
@@ -31,13 +29,11 @@ export function LoadHistory(){
             if  (!response.ok){
                 setHistoryLoaded(false);
                 console.error("Error: " + data.message);
-                setMessage("Failed to load historical data");
                 setLoading(false)
                 return;
             }
         } catch (error) {
             console.error("Error loading historical data:", error);
-            setMessage("Failed to load historical data");
             setLoading(false);
             setHistoryLoaded(false)
         }
@@ -62,14 +58,12 @@ export function LoadHistory(){
             }
             else if (state === "failed"){
                 console.error("History loading failed.")
-                setMessage("Failed to load historical data");
                 setHistoryLoaded(false);
                 setLoading(false);
                 return;
             }
             else if (state === "success"){
                 console.log("History loading succeeded.")
-                setMessage("Historical data loaded successfully");
                 setHistoryLoaded(true);
                 setLoading(false);
                 return;
