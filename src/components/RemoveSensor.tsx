@@ -37,7 +37,7 @@ export function RemoveSensor({ onSensorRemoved }: RemoveSensorProps) {
         console.log("Form validated and submitted", formData);
 
         try {
-            const response = await fetch(`http://localhost:8080/api/sensors/${sensorId}`, {
+            const response = await fetch(`/api/sensors/${sensorId}`, {
                 method: "DELETE",
             });
 

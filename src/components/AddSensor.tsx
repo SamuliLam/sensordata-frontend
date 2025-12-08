@@ -79,7 +79,7 @@ export function AddSensor({ onSensorAdded }: AddSensorProps) {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/sensors", {
+            const response = await fetch("/api/sensors", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

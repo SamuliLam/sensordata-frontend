@@ -11,7 +11,7 @@ type ImportCSVProps = {
 export function ImportCSV({ onImportComplete }: ImportCSVProps) {
     const handleImport = async () => {
         try {
-            const response = await fetch("http://localhost:8080/api/sensors/import", {
+            const response = await fetch("/api/sensors/import", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
             });
