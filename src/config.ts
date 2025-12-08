@@ -60,7 +60,7 @@ export const config = {
     dashboards: {
       // Main dashboard with map panel
       main: () => 
-        `${config.grafana.baseUrl}/d-solo/ad8fclh/main-dashboard?orgId=1&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true`,
+        `${config.grafana.baseUrl}/d-solo/ad8fclh/main-dashboard?orgId=1&from=1765202988606&to=1765224588606&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true`,
       // Sensor-specific dashboard
       sensor: (sensorId: string) => 
         `${config.grafana.baseUrl}/d/ad6d5kp/sensori-kohtainen-nakyma?orgId=1&timezone=browser&theme=light&var-SensorID=${sensorId}`,
