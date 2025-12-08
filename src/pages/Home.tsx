@@ -59,7 +59,7 @@ export const Home = () => {
         });
     };
 
-    const map_dsb = config.grafana.dashboards.main('panel-2');
+    const map_dsb = config.grafana.dashboards.main();
 
 
     return (

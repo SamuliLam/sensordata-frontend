@@ -56,14 +56,15 @@ export const config = {
   grafana: {
     baseUrl: getGrafanaBaseUrl(),
     
-    // Dashboard URLs
+    // Dashboard URLs - preserving exact paths from original code
     dashboards: {
-      main: (panelId?: string) => {
-        const base = `${config.grafana.baseUrl}/d-solo/ad8fclh/main-dashboard?orgId=1&timezone=browser&theme=light`;
-        return panelId ? `${base}&panelId=${panelId}&__feature.dashboardSceneSolo=true` : base;
-      },
+      // Main dashboard with map panel
+      main: () => 
+        `${config.grafana.baseUrl}/d-solo/ad8fclh/main-dashboard?orgId=1&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true`,
+      // Sensor-specific dashboard
       sensor: (sensorId: string) => 
         `${config.grafana.baseUrl}/d/ad6d5kp/sensori-kohtainen-nakyma?orgId=1&timezone=browser&theme=light&var-SensorID=${sensorId}`,
+      // Overview dashboard
       overview: () => 
         `${config.grafana.baseUrl}/d/adlcv8h/yleisnakyma?orgId=1`,
     },
