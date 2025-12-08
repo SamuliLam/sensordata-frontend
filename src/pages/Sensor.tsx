@@ -1,10 +1,4 @@
-//import { useParams } from "react-router-dom";
 import { useParams } from "react-router-dom";
-
-interface SensorDataProps {
-  dsb_link: String;
-  styles?: string;
-}
 
 export const SensorData = ({ styles }: { styles?: string }) => {
   const { sensorId } = useParams<{ sensorId: string }>();

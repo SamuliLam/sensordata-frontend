@@ -1,16 +1,10 @@
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
 import {
-    Field,
-    FieldContent,
-    FieldDescription,
-    FieldGroup,
     FieldLabel,
     FieldLegend,
     FieldSeparator,
-    FieldSet,
 } from "@/components/ui/field"
 
 import {
@@ -29,9 +23,12 @@ type SensorErrors = {
     sensorType?: string;
 };
 
+type AddSensorProps = {
+    onSensorAdded?: () => void;
+};
 
 
-export function AddSensor({onSensorAdded}) {
+export function AddSensor({ onSensorAdded }: AddSensorProps) {
     const [selectedSensorType, setSelectedSensorType] = useState("");
     const sensorTypes = ["urban", "viherpysakki", "ymparistomoduuli", "suvilahti"];
     const [errors, setErrors] = useState<SensorErrors>({});
@@ -49,10 +46,10 @@ export function AddSensor({onSensorAdded}) {
 
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const formData = new FormData(e.target);
+        const formData = new FormData(e.currentTarget);
 
         const newErrors : SensorErrors = {};
 
@@ -65,7 +62,7 @@ export function AddSensor({onSensorAdded}) {
         if (!formData.get("longitude")) newErrors.longitude = "Longitude is required";
         if (formData.get("longitude") && isNaN(Number(formData.get("longitude")))) newErrors.longitude = "Longitude must be a number";
 
-        if (selectedSensorType === "Select sensor type") newErrors.sensorType = "Sensor type is required";
+        if (!selectedSensorType) newErrors.sensorType = "Sensor type is required";
 
         if(Object.keys(newErrors).length !== 0) {
             setErrors(newErrors);
@@ -108,7 +105,7 @@ export function AddSensor({onSensorAdded}) {
             setSensorId("");
             setLatitude("");
             setLongitude("");
-            setSelectedSensorType("Select sensor type");
+            setSelectedSensorType("");
         } catch (error) {
             console.error("Error:", error);
         }
