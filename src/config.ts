@@ -16,6 +16,16 @@ const getApiBaseUrl = (): string => {
   return '/api';
 };
 
+// Determine Grafana base URL based on environment
+const getGrafanaBaseUrl = (): string => {
+  if (import.meta.env.DEV) {
+    // Development: direct access to Grafana
+    return 'http://localhost:3000';
+  }
+  // Production: use relative path for Nginx proxy routing
+  return '/grafana';
+};
+
 export const config = {
   // API Configuration
   api: {
@@ -40,6 +50,23 @@ export const config = {
     
     // Health check
     health: () => `${config.api.baseUrl.replace('/api', '')}/health`,
+  },
+
+  // Grafana Configuration
+  grafana: {
+    baseUrl: getGrafanaBaseUrl(),
+    
+    // Dashboard URLs
+    dashboards: {
+      main: (panelId?: string) => {
+        const base = `${config.grafana.baseUrl}/d-solo/ad8fclh/main-dashboard?orgId=1&timezone=browser&theme=light`;
+        return panelId ? `${base}&panelId=${panelId}&__feature.dashboardSceneSolo=true` : base;
+      },
+      sensor: (sensorId: string) => 
+        `${config.grafana.baseUrl}/d/ad6d5kp/sensori-kohtainen-nakyma?orgId=1&timezone=browser&theme=light&var-SensorID=${sensorId}`,
+      overview: () => 
+        `${config.grafana.baseUrl}/d/adlcv8h/yleisnakyma?orgId=1`,
+    },
   },
 
   // Application settings
