@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
+import { config } from "@/config";
 import {
     FieldLabel,
     FieldLegend,
@@ -79,7 +80,7 @@ export function AddSensor({ onSensorAdded }: AddSensorProps) {
         };
 
         try {
-            const response = await fetch("/api/sensors", {
+            const response = await fetch(config.api.sensors.add(), {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

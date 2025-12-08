@@ -1,6 +1,7 @@
 import { useState, type FormEvent } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { config } from "@/config";
 import { FieldLabel, FieldLegend, FieldSeparator } from "@/components/ui/field";
 import { useQueryClient } from "@tanstack/react-query";
 
@@ -37,7 +38,7 @@ export function RemoveSensor({ onSensorRemoved }: RemoveSensorProps) {
         console.log("Form validated and submitted", formData);
 
         try {
-            const response = await fetch(`/api/sensors/${sensorId}`, {
+            const response = await fetch(config.api.sensors.delete(sensorId as string), {
                 method: "DELETE",
             });
 

@@ -9,6 +9,7 @@ import { DataTable } from "@/components/ui/data-table.tsx";
 import { useSearch } from "@/contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
 import { ImportCSV } from "@/components/ImportCSV.tsx";
+import { config } from "@/config";
 
 
 interface SensorApiResponse {
@@ -19,7 +20,7 @@ interface SensorApiResponse {
 
 
 export async function getTableData(): Promise<Sensor[]> {
-    const response = await fetch("/api/sensor_metadata", {
+    const response = await fetch(config.api.sensors.list(), {
         method: "GET",
     });
 

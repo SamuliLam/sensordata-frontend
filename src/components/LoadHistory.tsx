@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
+import { config } from "@/config";
 
 export function LoadHistory(){
     const [loading, setLoading] = useState(false);
@@ -11,7 +12,7 @@ export function LoadHistory(){
         setHistoryLoaded(null);
 
         try {
-            const response = await fetch("/api/history", {
+            const response = await fetch(config.api.history.load(), {
                 method: "POST",
                 headers: {"Content-Type": "application/json"}
             });
@@ -41,7 +42,7 @@ export function LoadHistory(){
 
     async function checkStatus() {
         try {
-            const status = await fetch("/api/history/status", {
+            const status = await fetch(config.api.history.status(), {
                 method: "GET",
                 headers: {"Content-Type": "application/json"}
 

@@ -2,6 +2,7 @@ import type { ChangeEvent } from "react";
 import Papa from "papaparse";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { config } from "@/config";
 import { FieldLegend } from "@/components/ui/field";
 
 type ImportCSVProps = {
@@ -11,7 +12,7 @@ type ImportCSVProps = {
 export function ImportCSV({ onImportComplete }: ImportCSVProps) {
     const handleImport = async () => {
         try {
-            const response = await fetch("/api/sensors/import", {
+            const response = await fetch(config.api.sensors.import(), {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
             });
