@@ -19,7 +19,7 @@ interface SensorApiResponse {
 
 
 export async function getTableData(): Promise<Sensor[]> {
-    const response = await fetch("http://localhost:8080/api/sensor_metadata", {
+    const response = await fetch("/api/sensor_metadata", {
         method: "GET",
     });
 
@@ -58,7 +58,7 @@ export const Home = () => {
         });
     };
 
-    const map_dsb = "http://localhost:3000/d-solo/ad8fclh/main-dashboard?orgId=1&from=1764683710414&to=1764705310414&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true";
+    const map_dsb = "/grafana/d-solo/ad8fclh/main-dashboard?orgId=1&from=1764683710414&to=1764705310414&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true";
 
 
     return (

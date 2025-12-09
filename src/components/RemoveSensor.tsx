@@ -2,14 +2,8 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
 import {
-    Field,
-    FieldContent,
-    FieldDescription,
-    FieldGroup,
     FieldLabel,
     FieldLegend,
-    FieldSeparator,
-    FieldSet,
 } from "@/components/ui/field"
 import { useQueryClient } from '@tanstack/react-query';
 
@@ -18,7 +12,7 @@ type SensorErrors = {
     sensorId?: string;
 }
 
-export function RemoveSensor({onSensorRemoved}) {
+export function RemoveSensor({onSensorRemoved}: {onSensorRemoved?: () => void}) {
     const queryClient = useQueryClient();
     const [sensorRemoved, setSensorRemoved] = useState(false);
     const [errors, setErrors] = useState<SensorErrors>({});
@@ -26,10 +20,10 @@ export function RemoveSensor({onSensorRemoved}) {
 
 
 
-    const handleRemove = async (e) => {
+    const handleRemove = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const formData = new FormData(e.target);
+        const formData = new FormData(e.currentTarget);
         const sensorId = formData.get("sensorId");
         const newErrors : SensorErrors = {};
 
@@ -45,7 +39,7 @@ export function RemoveSensor({onSensorRemoved}) {
         }
 
         try {
-            const response = await fetch(`http://localhost:8080/api/sensors/${sensorId}`, {
+            const response = await fetch(`/api/sensors/${sensorId}`, {
                 method: "DELETE",
             });
 
@@ -62,7 +56,7 @@ export function RemoveSensor({onSensorRemoved}) {
             setMessage("Sensor removed successfully!")
             setSensorRemoved(true);
             onSensorRemoved?.();
-            queryClient.invalidateQueries(["sensor_metadata"]);
+            queryClient.invalidateQueries({queryKey: ["sensor_metadata"]});
         } catch (error) {
             console.error("Error removing sensor:", error);
             setMessage("Failed to remove sensor.")

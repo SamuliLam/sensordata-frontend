@@ -1,16 +1,10 @@
-import { Menu, MenuButton, MenuItems, MenuItem } from "@headlessui/react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
 import {
-    Field,
-    FieldContent,
-    FieldDescription,
-    FieldGroup,
     FieldLabel,
     FieldLegend,
     FieldSeparator,
-    FieldSet,
 } from "@/components/ui/field"
 
 import {
@@ -31,7 +25,7 @@ type SensorErrors = {
 
 
 
-export function AddSensor({onSensorAdded}) {
+export function AddSensor({onSensorAdded}: {onSensorAdded?: () => void}) {
     const [selectedSensorType, setSelectedSensorType] = useState("");
     const sensorTypes = ["urban", "viherpysakki", "ymparistomoduuli", "suvilahti"];
     const [errors, setErrors] = useState<SensorErrors>({});
@@ -49,10 +43,10 @@ export function AddSensor({onSensorAdded}) {
 
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const formData = new FormData(e.target);
+        const formData = new FormData(e.currentTarget);
 
         const newErrors : SensorErrors = {};
 
@@ -82,7 +76,7 @@ export function AddSensor({onSensorAdded}) {
         };
 
         try {
-            const response = await fetch("http://localhost:8080/api/sensors", {
+            const response = await fetch("/api/sensors", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

@@ -4,7 +4,7 @@ import { Spinner } from "@/components/ui/spinner"
 
 export function LoadHistory(){
     const [loading, setLoading] = useState(false);
-    const [message, setMessage] = useState("");
+    const [_message, setMessage] = useState("");
     const [historyLoaded, setHistoryLoaded] = useState<null | boolean>(null);
 
     async function handleLoadHistory(){
@@ -13,7 +13,7 @@ export function LoadHistory(){
         setHistoryLoaded(null);
 
         try {
-            const response = await fetch("http://localhost:8080/api/history", {
+            const response = await fetch("/api/history", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"}
             });
@@ -45,7 +45,7 @@ export function LoadHistory(){
 
     async function checkStatus() {
         try {
-            const status = await fetch("http://localhost:8080/api/history/status", {
+            const status = await fetch("/api/history/status", {
                 method: "GET",
                 headers: {"Content-Type": "application/json"}
 

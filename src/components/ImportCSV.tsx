@@ -5,12 +5,12 @@ import { Input } from "@/components/ui/input";
 import {FieldLegend} from "@/components/ui/field.tsx";
 
 
-export function ImportCSV({onCSVLoaded}) {
-    const [data, setData] = useState([]);
+export function ImportCSV({onImportComplete}: {onImportComplete?: () => void}) {
+    const [_data, setData] = useState<unknown[]>([]);
 
     const handleImport = async () => {
         try {
-            const response = await fetch("http://localhost:8080/api/sensors/import", {
+            const response = await fetch("/api/sensors/import", {
                 method: "POST",
                 headers: {"Content-Type": "application/json"}
             });
@@ -23,6 +23,7 @@ export function ImportCSV({onCSVLoaded}) {
             }
 
             console.log("CSV imported successfully:", data);
+            onImportComplete?.();
         } catch (error) {
             console.error("Error importing CSV:", error);
         }
