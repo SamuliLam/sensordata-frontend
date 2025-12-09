@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
+import { API_BASE_URL } from "@/lib/utils";
 import {
     FieldLabel,
     FieldLegend,
@@ -39,7 +40,7 @@ export function RemoveSensor({onSensorRemoved}: {onSensorRemoved?: () => void}) 
         }
 
         try {
-            const response = await fetch(`/api/sensors/${sensorId}`, {
+            const response = await fetch(`${API_BASE_URL}/api/sensors/${sensorId}`, {
                 method: "DELETE",
             });
 

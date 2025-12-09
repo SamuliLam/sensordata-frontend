@@ -3,6 +3,7 @@ import { useState}  from "react";
 import Papa from "papaparse";
 import { Input } from "@/components/ui/input";
 import {FieldLegend} from "@/components/ui/field.tsx";
+import { API_BASE_URL } from "@/lib/utils";
 
 
 export function ImportCSV({onImportComplete}: {onImportComplete?: () => void}) {
@@ -10,7 +11,7 @@ export function ImportCSV({onImportComplete}: {onImportComplete?: () => void}) {
 
     const handleImport = async () => {
         try {
-            const response = await fetch("/api/sensors/import", {
+            const response = await fetch(`${API_BASE_URL}/api/sensors/import`, {
                 method: "POST",
                 headers: {"Content-Type": "application/json"}
             });

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
+import { API_BASE_URL } from "@/lib/utils";
 import {
     FieldLabel,
     FieldLegend,
@@ -76,7 +77,7 @@ export function AddSensor({onSensorAdded}: {onSensorAdded?: () => void}) {
         };
 
         try {
-            const response = await fetch("/api/sensors", {
+            const response = await fetch(`${API_BASE_URL}/api/sensors`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
