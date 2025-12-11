@@ -106,6 +106,8 @@ export function AddSensor({onSensorAdded}: Readonly<{ onSensorAdded?: () => void
             setSelectedSensorType("Select sensor type");
         } catch (error) {
             console.error("Error:", error);
+            setSensorAddFailed(true);
+            setSensorAdded(false);
         }
     };
 
