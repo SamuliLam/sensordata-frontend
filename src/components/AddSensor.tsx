@@ -26,7 +26,7 @@ type SensorErrors = {
 
 
 
-export function AddSensor({onSensorAdded}: {onSensorAdded?: () => void}) {
+export function AddSensor({onSensorAdded}: Readonly<{ onSensorAdded?: () => void }>) {
     const [selectedSensorType, setSelectedSensorType] = useState("");
     const sensorTypes = ["urban", "viherpysakki", "ymparistomoduuli", "suvilahti"];
     const [errors, setErrors] = useState<SensorErrors>({});

@@ -13,7 +13,7 @@ type SensorErrors = {
     sensorId?: string;
 }
 
-export function RemoveSensor({onSensorRemoved}: {onSensorRemoved?: () => void}) {
+export function RemoveSensor({onSensorRemoved}: Readonly<{ onSensorRemoved?: () => void }>) {
     const queryClient = useQueryClient();
     const [sensorRemoved, setSensorRemoved] = useState(false);
     const [errors, setErrors] = useState<SensorErrors>({});
@@ -57,7 +57,7 @@ export function RemoveSensor({onSensorRemoved}: {onSensorRemoved?: () => void}) 
             setMessage("Sensor removed successfully!")
             setSensorRemoved(true);
             onSensorRemoved?.();
-            queryClient.invalidateQueries({queryKey: ["sensor_metadata"]});
+            await queryClient.invalidateQueries({queryKey: ["sensor_metadata"]});
         } catch (error) {
             console.error("Error removing sensor:", error);
             setMessage("Failed to remove sensor.")
@@ -76,7 +76,7 @@ export function RemoveSensor({onSensorRemoved}: {onSensorRemoved?: () => void}) 
                         type="text"
                         id="sensorId"
                         name="sensorId"
-                        className="w-full border border-gray-300 p-2 border rounded "
+                        className="w-full border-gray-300 p-2 border rounded "
                         placeholder="Enter Sensor ID"
                     />
                 </div>

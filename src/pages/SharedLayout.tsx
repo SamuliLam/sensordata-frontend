@@ -44,7 +44,7 @@ export const SharedLayout = () => {
                 <Outlet/>
             </main>
             <footer className={"flex items-center justify-center bg-Main-gohan"}>
-                <p>This is the footer</p>
+                <p>© Jaakko Lehtonen {new Date().getFullYear()} </p>
             </footer>
         </>
     )

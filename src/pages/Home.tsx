@@ -83,8 +83,8 @@ export const Home = () => {
                     refreshKey={dashboardRefreshKey}
                 />
 
-                {isLoading && <p>Loading sensor data...</p>}
-                {error && <p>Error fetching sensor data: {(error as Error).message}</p>}
+                {isLoading && <p className="text-center">Loading sensor data...</p>}
+                {error && <p className="text-center">Error fetching sensor data: {(error as Error).message}</p>}
                 {!isLoading && !error && (
                     <DataTable 
                         columns={columns} 
