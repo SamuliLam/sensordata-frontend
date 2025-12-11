@@ -8,7 +8,6 @@ import { columns, type Sensor } from "@/components/ui/columns.tsx";
 import { DataTable } from "@/components/ui/data-table.tsx";
 import { useSearch } from "@/contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
-import { ImportCSV } from "@/components/ImportCSV.tsx";
 import { API_BASE_URL } from "@/lib/utils";
 
 
@@ -71,7 +70,6 @@ export const Home = () => {
                 {/* Pass refresh callback to AddSensor */}
                 <AddSensor onSensorAdded={refreshEverything} />
                 <RemoveSensor onSensorRemoved={refreshEverything}/>
-                <ImportCSV onImportComplete={refreshEverything} />
             </div>
 
             {/* Right panel — Dashboards + DataTable */}
