@@ -19,7 +19,7 @@ interface SensorApiResponse {
 
 
 export async function getTableData(): Promise<Sensor[]> {
-    const response = await fetch(`${API_BASE_URL}/api/sensor_metadata`, {
+    const response = await fetch(`${API_BASE_URL}/api/sensors/metadata`, {
         method: "GET",
     });
 
