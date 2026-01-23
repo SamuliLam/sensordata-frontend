@@ -33,6 +33,7 @@ export function AddSensor({onSensorAdded}: Readonly<{ onSensorAdded?: () => void
     const [sensorAdded, setSensorAdded] = useState(false);
     const [sensorAddFailed, setSensorAddFailed] = useState(false);
     const [sensorId, setSensorId] = useState("");
+    const [description, setDescription] = useState("");
     const [latitude, setLatitude] = useState("");
     const [longitude, setLongitude] = useState("");
 
@@ -71,6 +72,7 @@ export function AddSensor({onSensorAdded}: Readonly<{ onSensorAdded?: () => void
         }
         const payload = {
             sensor_id: formData.get("sensorId"),
+            description: formData.get("description"),
             latitude: formData.get("latitude"),
             longitude: formData.get("longitude"),
             sensor_type: selectedSensorType,
@@ -101,6 +103,7 @@ export function AddSensor({onSensorAdded}: Readonly<{ onSensorAdded?: () => void
             setSensorAddFailed(false)
             onSensorAdded?.();
             setSensorId("");
+            setDescription("");
             setLatitude("");
             setLongitude("");
             setSelectedSensorType("Select sensor type");
@@ -128,6 +131,16 @@ export function AddSensor({onSensorAdded}: Readonly<{ onSensorAdded?: () => void
                 </div>
                 {errors.sensorId && <p className="text-red-500 text-sm">{errors.sensorId}</p>}
 
+                <div className="flex flex-col">
+                    <FieldLabel htmlFor="description" className="mb-1 font-medium">Description</FieldLabel>
+                    <Input type="text"
+                           id="description"
+                           name="description"
+                           value={description}
+                           onChange={(e) => setDescription(e.target.value)}
+                           className="border rounded px-3 py-2"
+                           placeholder="Enter sensor description"/>
+                </div>
 
                 <div className="flex flex-col">
                     <FieldLabel htmlFor="latitude" className="mb-1 font-medium">Latitude</FieldLabel>

@@ -17,6 +17,10 @@ export const columns: ColumnDef<Sensor>[] = [
         header: "Sensor ID",
     },
     {
+        accessorKey: "description",
+        header: "Description",
+    },
+    {
         accessorKey: "sensor_type",
         header: "Type",
     },
