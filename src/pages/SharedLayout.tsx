@@ -3,9 +3,28 @@ import {SearchIcon} from "lucide-react";
 import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/input-group.tsx";
 import {HoverSlideAnimation} from "@/components/HoverSlideAnimation.tsx";
 import {useSearch} from "@/contexts/SearchContext";
+import { useAuth0 } from "@auth0/auth0-react";
+
 
 export const SharedLayout = () => {
     const { searchValue, setSearchValue } = useSearch();
+    const {
+        isLoading, // Loading state, the SDK needs to reach Auth0 on load
+        isAuthenticated,
+        error,
+        loginWithRedirect: login, // Starts the login flow
+        logout: auth0Logout, // Starts the logout flow
+        user, // User profile
+    } = useAuth0();
+
+
+    const signup = () =>
+        login({ authorizationParams: { screen_hint: "signup" } });
+
+    const logout = () =>
+        auth0Logout({ logoutParams: { returnTo: window.location.origin } });
+
+
 
     return (
         <>
@@ -36,6 +55,21 @@ export const SharedLayout = () => {
                                     <SearchIcon/>
                                 </InputGroupAddon>
                             </InputGroup>
+                        </li>
+                        <li>
+                            {isAuthenticated ? (
+                                <>
+                                    <p>Logged in as {user.email}</p>
+                                    <h1>User Profile</h1>
+                                    <pre>{JSON.stringify(user, null, 2)}</pre>
+                                    <button onClick={logout}>Logout</button>
+                                </>
+                            ) : (
+                                <>
+                                    {error && <p>Error: {error.message}</p>}
+                                    <button onClick={login}>Login</button>
+                                </>
+                            )}
                         </li>
                     </ul>
                 </nav>
