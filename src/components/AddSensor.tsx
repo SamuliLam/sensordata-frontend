@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth0 } from '@auth0/auth0-react';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
 import { API_BASE_URL } from "@/lib/utils";
@@ -36,6 +37,7 @@ export function AddSensor({onSensorAdded}: Readonly<{ onSensorAdded?: () => void
     const [description, setDescription] = useState("");
     const [latitude, setLatitude] = useState("");
     const [longitude, setLongitude] = useState("");
+    const { getAccessTokenSilently } = useAuth0();
 
     const isFormValid =
         sensorId.trim() !== "" &&
@@ -79,10 +81,13 @@ export function AddSensor({onSensorAdded}: Readonly<{ onSensorAdded?: () => void
         };
 
         try {
+            const token = await getAccessTokenSilently()
+
             const response = await fetch(`${API_BASE_URL}/api/sensors`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`,
                 },
                 body: JSON.stringify(payload),
             });

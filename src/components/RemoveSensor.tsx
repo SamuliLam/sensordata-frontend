@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useAuth0 } from '@auth0/auth0-react';
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input";
 import { API_BASE_URL } from "@/lib/utils";
@@ -18,7 +19,7 @@ export function RemoveSensor({onSensorRemoved}: Readonly<{ onSensorRemoved?: () 
     const [sensorRemoved, setSensorRemoved] = useState(false);
     const [errors, setErrors] = useState<SensorErrors>({});
     const [message, setMessage] = useState("");
-
+    const { getAccessTokenSilently } = useAuth0();
 
 
     const handleRemove = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -40,8 +41,13 @@ export function RemoveSensor({onSensorRemoved}: Readonly<{ onSensorRemoved?: () 
         }
 
         try {
+            const token = await getAccessTokenSilently()
             const response = await fetch(`${API_BASE_URL}/api/sensors/${sensorId}`, {
                 method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
             });
 
             const result = await response.json();
