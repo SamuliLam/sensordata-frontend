@@ -4,27 +4,14 @@ import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/inpu
 import {HoverSlideAnimation} from "@/components/HoverSlideAnimation.tsx";
 import {useSearch} from "@/contexts/SearchContext";
 import { useAuth0 } from "@auth0/auth0-react";
+import Profile from "@/components/Profile.tsx";
+import LogoutButton from "@/components/LogoutButton.tsx";
+import LoginButton from "@/components/LoginButton.tsx";
 
 
 export const SharedLayout = () => {
     const { searchValue, setSearchValue } = useSearch();
-    const {
-        isLoading, // Loading state, the SDK needs to reach Auth0 on load
-        isAuthenticated,
-        error,
-        loginWithRedirect: login, // Starts the login flow
-        logout: auth0Logout, // Starts the logout flow
-        user, // User profile
-    } = useAuth0();
-
-
-    const signup = () =>
-        login({ authorizationParams: { screen_hint: "signup" } });
-
-    const logout = () =>
-        auth0Logout({ logoutParams: { returnTo: window.location.origin } });
-
-
+    const { isAuthenticated, isLoading, error } = useAuth0();
 
     return (
         <>
@@ -58,17 +45,18 @@ export const SharedLayout = () => {
                         </li>
                         <li>
                             {isAuthenticated ? (
-                                <>
-                                    <p>Logged in as {user.email}</p>
-                                    <h1>User Profile</h1>
-                                    <pre>{JSON.stringify(user, null, 2)}</pre>
-                                    <button onClick={logout}>Logout</button>
-                                </>
+                                <div className="logged-in-section">
+                                    <div className="logged-in-message">✅ Successfully authenticated!</div>
+                                    <h2 className="profile-section-title">Your Profile</h2>
+                                    <div className="profile-card">
+                                        <Profile />
+                                    </div>
+                                    <LogoutButton />
+                                </div>
                             ) : (
-                                <>
-                                    {error && <p>Error: {error.message}</p>}
-                                    <button onClick={login}>Login</button>
-                                </>
+                                <div className="action-card">
+                                    <LoginButton />
+                                </div>
                             )}
                         </li>
                     </ul>
