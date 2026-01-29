@@ -18,9 +18,7 @@ function App() {
                 <BrowserRouter>
                     <Routes>
                         <Route element={<SharedLayout/>}>
-
                             <Route index element={<Home/>}/>
-
                             <Route path="/sensors/:sensorId" element={<SensorData/>}></Route>
                             <Route path="/sensors" element={<Sensors/>}></Route>
                         </Route>

@@ -8,7 +8,6 @@ import Profile from "@/components/Profile.tsx";
 import LogoutButton from "@/components/LogoutButton.tsx";
 import LoginButton from "@/components/LoginButton.tsx";
 
-
 export const SharedLayout = () => {
     const { searchValue, setSearchValue } = useSearch();
     const { isAuthenticated, isLoading, error } = useAuth0();
@@ -45,9 +44,7 @@ export const SharedLayout = () => {
                         </li>
                         <li>
                             {isAuthenticated ? (
-                                <div className="logged-in-section">
-                                    <div className="logged-in-message">✅ Successfully authenticated!</div>
-                                    <h2 className="profile-section-title">Your Profile</h2>
+                                <div className="logged-in-section flex gap-5 items-center">
                                     <div className="profile-card">
                                         <Profile />
                                     </div>
