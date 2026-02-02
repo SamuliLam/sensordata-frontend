@@ -10,6 +10,7 @@ import { useSearch } from "@/contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "@/lib/utils";
 import { useAuthenticatedUser } from '@/hooks/useAuthenticatedUser.ts'
+import {useAuth0} from "@auth0/auth0-react";
 
 
 
@@ -20,9 +21,13 @@ interface SensorApiResponse {
 }
 
 
-export async function getTableData(): Promise<Sensor[]> {
+async function getTableData(token: string): Promise<Sensor[]> {
     const response = await fetch(`${API_BASE_URL}/api/sensors/metadata`, {
         method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${token}`,
+        }
     });
 
     if (!response.ok) {
@@ -39,17 +44,20 @@ export const Home = () => {
     const { searchValue } = useSearch();
     const navigate = useNavigate();
     const { isAuthenticated } = useAuthenticatedUser();
+    const { getAccessTokenSilently } = useAuth0();
+
 
 
     const handleRowClick = (sensor: Sensor) => {
         navigate(`/sensors/${sensor.sensor_id}`);
     };
 
-
     const { data, error, isLoading } = useQuery({
         queryKey: ["sensor_metadata"],
-        queryFn: getTableData,
-    });
+        queryFn: async () => {
+            const token = await getAccessTokenSilently();
+            return getTableData(token);
+        },});
 
     const [dashboardRefreshKey, setDashboardRefreshKey] = useState(0);
 

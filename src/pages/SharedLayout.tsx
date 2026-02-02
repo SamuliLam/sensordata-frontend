@@ -1,25 +1,38 @@
 import {Outlet} from "react-router-dom";
-import {SearchIcon} from "lucide-react";
+import {SearchIcon, Menu, X} from "lucide-react";
 import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/input-group.tsx";
 import {HoverSlideAnimation} from "@/components/HoverSlideAnimation.tsx";
 import {useSearch} from "@/contexts/SearchContext";
 import { useAuth0 } from "@auth0/auth0-react";
 import Profile from "@/components/Profile.tsx";
 import LogoutButton from "@/components/LogoutButton.tsx";
-import LoginButton from "@/components/LoginButton.tsx";
+import { useState } from "react";
 
 export const SharedLayout = () => {
     const { searchValue, setSearchValue } = useSearch();
-    const { isAuthenticated, isLoading, error } = useAuth0();
+    const { isAuthenticated } = useAuth0();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
     return (
         <>
             <header className={"p-2 bg-primary text-primary-foreground text-2xl font-bold"}>
-                <nav className={"flex items-center justify-center"}>
-                    <ul className={"flex justify-between mx-auto max-w-4/5 grow items-center"}>
+                <nav className={"flex items-center justify-between md:justify-center px-4"}>
+                    {/* Burger Menu */}
+                    <div className="md:hidden">
+                        <button
+                            onClick={() => setIsMenuOpen(!isMenuOpen)}
+                            className="p-2 hover:bg-secondary hover:bg-opacity-20 rounded-lg transition-colors"
+                            aria-label="Toggle menu"
+                        >
+                            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+                        </button>
+                    </div>
+
+                    {/* Desktop Navigation */}
+                    <ul className={"hidden md:flex justify-between mx-auto max-w-4/5 grow items-center gap-8"}>
                         <li>
                             <a href="/" className="relative group">
-                                Sensor Dashboard
+                                Dashboard
                                 <HoverSlideAnimation color="bg-secondary"/>
                             </a>
                         </li>
@@ -29,7 +42,7 @@ export const SharedLayout = () => {
                                 <HoverSlideAnimation color="bg-secondary"/>
                             </a>
                         </li>
-                        <li>
+                        <li className="ml-auto">
                             <InputGroup className={"bg-secondary"}>
                                 <InputGroupInput 
                                     className="text-black" 
@@ -43,21 +56,63 @@ export const SharedLayout = () => {
                             </InputGroup>
                         </li>
                         <li>
-                            {isAuthenticated ? (
+                            {isAuthenticated && (
                                 <div className="logged-in-section flex gap-5 items-center">
                                     <div className="profile-card">
                                         <Profile />
                                     </div>
                                     <LogoutButton />
                                 </div>
-                            ) : (
-                                <div className="action-card">
-                                    <LoginButton />
-                                </div>
                             )}
                         </li>
                     </ul>
+
+                    {/* Mobile Search and Auth  */}
+                    <div className="flex md:hidden items-center gap-3 ml-auto">
+                        <InputGroup className={"bg-secondary"}>
+                            <InputGroupInput
+                                className="text-black text-sm"
+                                placeholder="Search.."
+                                value={searchValue}
+                                onChange={(e) => setSearchValue(e.target.value)}
+                            />
+                            <InputGroupAddon>
+                                <SearchIcon size={18}/>
+                            </InputGroupAddon>
+                        </InputGroup>
+                        {isAuthenticated && (
+                            <div className="logged-in-section flex gap-3 items-center">
+                                <LogoutButton />
+                            </div>
+                        )}
+                    </div>
                 </nav>
+
+                {/* Mobile Menu */}
+                {isMenuOpen && (
+                    <div className="md:hidden bg-primary-foreground bg-opacity-10 border-t border-primary-foreground border-opacity-20 mt-2">
+                        <ul className="flex flex-col gap-4 p-4">
+                            <li>
+                                <a
+                                    href="/"
+                                    className="text-primary-foreground text-lg font-semibold block py-2 hover:opacity-80 transition-opacity"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Dashboard
+                                </a>
+                            </li>
+                            <li>
+                                <a
+                                    href="/sensors"
+                                    className="text-primary-foreground text-lg font-semibold block py-2 hover:opacity-80 transition-opacity"
+                                    onClick={() => setIsMenuOpen(false)}
+                                >
+                                    Sensors
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                )}
             </header>
             <main className="flex flex-col items-center justify-center grow">
                 <Outlet/>

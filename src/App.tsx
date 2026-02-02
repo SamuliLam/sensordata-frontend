@@ -1,4 +1,4 @@
-import {BrowserRouter, Routes, Route, Navigate, Outlet} from "react-router-dom";
+import {BrowserRouter, Routes, Route} from "react-router-dom";
 import {SharedLayout} from "./pages/SharedLayout.tsx";
 import {Home} from "./pages/Home.tsx";
 import {SensorData} from "@/pages/Sensor.tsx";
@@ -8,42 +8,41 @@ import {
     QueryClientProvider,
 } from '@tanstack/react-query'
 import { SearchProvider } from "@/contexts/SearchContext";
-import {Auth0Provider, useAuth0, withAuthenticationRequired} from "@auth0/auth0-react";
+import {Auth0Provider } from "@auth0/auth0-react";
 import {AccessRequested} from "@/pages/AccessRequested.tsx";
-
-function RequireAuthorization() {
-    const { user, isLoading } = useAuth0();
-
-    if (isLoading) return null;
-
-    const authorized = user?.app_metadata?.authorized;
-
-    if (authorized === false) {
-        return <Navigate to="/access-requested" replace />;
-    }
-
-    return <Outlet />;
-}
-
-const ProtectedLayout = withAuthenticationRequired(SharedLayout);
+import { AuthenticationGuard } from "@/components/AuthenticationGuard.tsx";
 
 const queryClient = new QueryClient();
 
 function App() {
+    const onRedirectCallback = (state?: { returnTo?: string }) => {
+        const returnTo = state?.returnTo || window.location.pathname;
+        window.history.replaceState({}, document.title, returnTo);
+    };
+
     return (
         <QueryClientProvider client={queryClient}>
             <SearchProvider>
                 <BrowserRouter>
+                    <Auth0Provider
+                        domain={import.meta.env.VITE_AUTH0_DOMAIN}
+                        clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+                        authorizationParams={{
+                            redirect_uri: window.location.origin,
+                            audience: import.meta.env.VITE_AUTH0_AUDIENCE
+                        }}
+                        onRedirectCallback={onRedirectCallback}
+                        cacheLocation="localstorage"
+                    >
                         <Routes>
-                            <Route element={<ProtectedLayout/>}>
-                                <Route element={<RequireAuthorization/>}>
+                            <Route path="/access-requested" element={<AccessRequested />} />
+                            <Route path="/" element={<AuthenticationGuard component={SharedLayout}/>}>
                                     <Route index element={<Home/>}/>
                                     <Route path="sensors/:sensorId" element={<SensorData/>}></Route>
                                     <Route path="sensors" element={<Sensors/>}></Route>
-                                </Route>
                             </Route>
-                            <Route path="/access-requested" element={<AccessRequested />} />
                         </Routes>
+                    </Auth0Provider>
                 </BrowserRouter>
             </SearchProvider>
         </QueryClientProvider>

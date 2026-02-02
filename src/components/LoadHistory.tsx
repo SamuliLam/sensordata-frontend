@@ -2,19 +2,25 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button"
 import { Spinner } from "@/components/ui/spinner"
 import { API_BASE_URL } from "@/lib/utils";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export function LoadHistory(){
     const [loading, setLoading] = useState(false);
     const [historyLoaded, setHistoryLoaded] = useState<null | boolean>(null);
+    const { getAccessTokenSilently } = useAuth0();
 
     async function handleLoadHistory(){
         setLoading(true);
         setHistoryLoaded(null);
 
         try {
+            const token = await getAccessTokenSilently();
             const response = await fetch(`${API_BASE_URL}/api/history`, {
                 method: "POST",
-                headers: {"Content-Type": "application/json"}
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
             });
 
          /* data not used, just sending request to endpoint :) */
@@ -37,10 +43,13 @@ export function LoadHistory(){
 
     async function checkStatus() {
         try {
+            const token = await getAccessTokenSilently();
             const status = await fetch(`${API_BASE_URL}/api/history/status`, {
                 method: "GET",
-                headers: {"Content-Type": "application/json"}
-
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${token}`
+                }
             })
 
 
