@@ -12,6 +12,7 @@ import { API_BASE_URL } from "@/lib/utils";
 import { useAuthenticatedUser } from '@/hooks/useAuthenticatedUser.ts'
 
 
+
 interface SensorApiResponse {
     status: string;
     message: string;
@@ -37,7 +38,7 @@ export const Home = () => {
     const queryClient = useQueryClient();
     const { searchValue } = useSearch();
     const navigate = useNavigate();
-    const { user, accessToken, isAuthenticated } = useAuthenticatedUser();
+    const { isAuthenticated } = useAuthenticatedUser();
 
 
     const handleRowClick = (sensor: Sensor) => {
