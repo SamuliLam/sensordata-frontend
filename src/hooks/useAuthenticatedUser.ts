@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 
 export function useAuthenticatedUser() {
     const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
-    const [accessToken, setAccessToken] = useState(null);
+    const [accessToken, setAccessToken] = useState<string | null>(null);
 
     useEffect(() => {
         if (isAuthenticated && !isLoading) {

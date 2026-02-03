@@ -1,9 +1,9 @@
 import { withAuthenticationRequired, useAuth0 } from "@auth0/auth0-react";
-import { useEffect } from "react";
+import { useEffect, type ComponentType } from "react";
 import { useNavigate } from "react-router-dom";
 import { Spinner } from "@/components/ui/spinner.tsx";
 
-export const AuthenticationGuard = ({ component: Component }) => {
+export const AuthenticationGuard = ({ component: Component }: { component: ComponentType }) => {
     const { error, isLoading } = useAuth0();
     const navigate = useNavigate();
 
