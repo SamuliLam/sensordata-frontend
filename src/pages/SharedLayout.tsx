@@ -1,4 +1,4 @@
-import {Outlet} from "react-router-dom";
+import {Outlet, NavLink} from "react-router-dom";
 import {SearchIcon, Menu, X} from "lucide-react";
 import {InputGroup, InputGroupAddon, InputGroupInput} from "@/components/ui/input-group.tsx";
 import {HoverSlideAnimation} from "@/components/HoverSlideAnimation.tsx";
@@ -31,16 +31,16 @@ export const SharedLayout = () => {
                     {/* Desktop Navigation */}
                     <ul className={"hidden md:flex justify-between mx-auto max-w-4/5 grow items-center gap-8"}>
                         <li>
-                            <a href="/" className="relative group">
+                            <NavLink to="/" className="relative group">
                                 Dashboard
                                 <HoverSlideAnimation color="bg-secondary"/>
-                            </a>
+                            </NavLink>
                         </li>
                         <li>
-                            <a href="/sensors" className="relative group">
+                            <NavLink to="/sensors" className="relative group">
                                 Sensors
                                 <HoverSlideAnimation color="bg-secondary"/>
-                            </a>
+                            </NavLink>
                         </li>
                         <li className="ml-auto">
                             <InputGroup className={"bg-secondary"}>
@@ -90,25 +90,17 @@ export const SharedLayout = () => {
 
                 {/* Mobile Menu */}
                 {isMenuOpen && (
-                    <div className="md:hidden bg-primary-foreground bg-opacity-10 border-t border-primary-foreground border-opacity-20 mt-2">
+                    <div className="md:hidden bg-opacity-10 mt-2">
                         <ul className="flex flex-col gap-4 p-4">
                             <li>
-                                <a
-                                    href="/"
-                                    className="text-primary-foreground text-lg font-semibold block py-2 hover:opacity-80 transition-opacity"
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
+                                <NavLink to="/" className="text-primary-foreground text-lg font-semibold block py-2 hover:opacity-80 transition-opacity" onClick={() => setIsMenuOpen(false)}>
                                     Dashboard
-                                </a>
+                                </NavLink>
                             </li>
                             <li>
-                                <a
-                                    href="/sensors"
-                                    className="text-primary-foreground text-lg font-semibold block py-2 hover:opacity-80 transition-opacity"
-                                    onClick={() => setIsMenuOpen(false)}
-                                >
+                                <NavLink to="sensors" className="text-primary-foreground text-lg font-semibold block py-2 hover:opacity-80 transition-opacity" onClick={() => setIsMenuOpen(false)}>
                                     Sensors
-                                </a>
+                                </NavLink>
                             </li>
                         </ul>
                     </div>

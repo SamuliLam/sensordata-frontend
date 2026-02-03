@@ -32,7 +32,6 @@ function App() {
                             audience: import.meta.env.VITE_AUTH0_AUDIENCE
                         }}
                         onRedirectCallback={onRedirectCallback}
-                        cacheLocation="localstorage"
                     >
                         <Routes>
                             <Route path="/access-requested" element={<AccessRequested />} />
