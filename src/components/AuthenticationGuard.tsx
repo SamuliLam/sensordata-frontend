@@ -9,13 +9,12 @@ export const AuthenticationGuard = ({ component: Component }: { component: Compo
 
     useEffect(() => {
         if (error) {
-            const errorCode = error.name || '';
-            // Check if access was denied by Auth0 rule
-            if (
-                errorCode === 'unauthorized' ||
-                errorCode === 'access_denied' ||
-                (error.message && error.message.includes('Access requested'))
-            ) {
+            const isAccessDenied =
+                error.message?.includes('access_denied') ||
+                error.message?.includes('You do not have access') ||
+                (error as any).error === 'access_denied';
+
+            if (isAccessDenied) {
                 navigate('/access-requested', { replace: true });
             }
         }
