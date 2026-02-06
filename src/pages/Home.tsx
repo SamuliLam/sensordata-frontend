@@ -20,7 +20,6 @@ interface SensorApiResponse {
     data: Sensor[];
 }
 
-
 async function getTableData(token: string): Promise<Sensor[]> {
     const response = await fetch(`${API_BASE_URL}/api/sensors/metadata`, {
         method: "GET",
@@ -43,9 +42,10 @@ export const Home = () => {
     const queryClient = useQueryClient();
     const { searchValue } = useSearch();
     const navigate = useNavigate();
-    const { isAuthenticated } = useAuthenticatedUser();
+    const { user } = useAuthenticatedUser();
     const { getAccessTokenSilently } = useAuth0();
 
+    const isAdmin = user?.["https://envidata-api.metropolia.fi/admin"];
 
 
     const handleRowClick = (sensor: Sensor) => {
@@ -77,7 +77,7 @@ export const Home = () => {
         <div className="flex flex-col md:flex-row w-full justify-center grow p-4">
 
             {/* Left panel — Add/Remove Sensor */}
-            {isAuthenticated && (
+            {isAdmin && (
                 <div className="order-2 md:order-1 md:mr-15 w-full md:w-1/5 flex-col md:min-w-[250px] space-y-8 mb-4 md:mb-0 md:ml-4 p-3 pt-14">
 
                     {/* Pass refresh callback to AddSensor */}
