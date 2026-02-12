@@ -46,20 +46,14 @@ export const Home = () => {
     const { user } = useAuthenticatedUser();
     const [sessionReady, setSessionReady] = useState(false);
     const { getAccessTokenSilently, isAuthenticated } = useAuth0();
+    const [jwtToken, setJwtToken] = useState<string | null>(null);
 
     useEffect(() => {
       const initSession = async () => {
         if (!isAuthenticated) return;
 
         const token = await getAccessTokenSilently();
-
-        await fetch("/api/session/init", {
-          method: "POST",
-          headers: {
-            Authorization: `Bearer ${token}`, 'ngrok-skip-browser-warning': 'true'
-          },
-          credentials: "include",
-        });
+        setJwtToken(token);
 
         setSessionReady(true); // 🔥 important
       };
@@ -92,7 +86,7 @@ export const Home = () => {
         });
     };
 
-    const map_dsb = "/grafana/d-solo/ad8fclh/main-dashboard?orgId=1&from=1764683710414&to=1764705310414&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true&kiosk";
+    const map_dsb = `/grafana/d-solo/ad8fclh/main-dashboard?orgId=1&from=1764683710414&to=1764705310414&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true&kiosk&auth_token=${jwtToken}`;
 
 
     return (
