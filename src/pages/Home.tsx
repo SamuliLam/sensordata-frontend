@@ -2,7 +2,7 @@ import { Dashboard } from "@/components/Dashboard.tsx";
 import { AddSensor } from "@/components/AddSensor.tsx";
 import { RemoveSensor } from "@/components/RemoveSensor.tsx";
 import { LoadHistory } from "@/components/LoadHistory.tsx";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import {useQuery, useQueryClient} from "@tanstack/react-query";
 import { columns, type Sensor } from "@/components/ui/columns.tsx";
 import { DataTable } from "@/components/ui/data-table.tsx";
@@ -19,6 +19,8 @@ interface SensorApiResponse {
     message: string;
     data: Sensor[];
 }
+
+
 
 async function getTableData(token: string): Promise<Sensor[]> {
     const response = await fetch(`${API_BASE_URL}/api/sensors/metadata`, {
@@ -37,15 +39,35 @@ async function getTableData(token: string): Promise<Sensor[]> {
     return json.data;
 }
 
-
 export const Home = () => {
     const queryClient = useQueryClient();
     const { searchValue } = useSearch();
     const navigate = useNavigate();
     const { user } = useAuthenticatedUser();
-    const { getAccessTokenSilently } = useAuth0();
+    const [sessionReady, setSessionReady] = useState(false);
+    const { getAccessTokenSilently, isAuthenticated } = useAuth0();
 
-    const isAdmin = user?.["https://envidata-api.metropolia.fi/admin"];
+    useEffect(() => {
+      const initSession = async () => {
+        if (!isAuthenticated) return;
+
+        const token = await getAccessTokenSilently();
+
+        await fetch("/api/session/init", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`, 'ngrok-skip-browser-warning': 'true'
+          },
+          credentials: "include",
+        });
+
+        setSessionReady(true); // 🔥 important
+      };
+
+      initSession();
+    }, [isAuthenticated]);
+
+        const isAdmin = user?.["https://envidata-api.metropolia.fi/admin"];
 
 
     const handleRowClick = (sensor: Sensor) => {
@@ -86,15 +108,18 @@ export const Home = () => {
                 </div>
             )}
             {/* Right panel — Dashboards + DataTable */}
+
             <div className="dashboard-container order-1 md:order-2  flex flex-col gap-3 items-stretch grow md:max-w-[69%] p-2">
                 <div className="flex self-start ">
                     <LoadHistory/>
                 </div>
-                <Dashboard
-                    styles="w-full"
-                    dsb_link={map_dsb}
-                    refreshKey={dashboardRefreshKey}
-                />
+                {sessionReady &&
+                    <Dashboard
+                        styles="w-full"
+                        dsb_link={map_dsb}
+                        refreshKey={dashboardRefreshKey}
+                    />
+                }
                 {isLoading && <p className="text-center">Loading sensor data...</p>}
                 {error && <p className="text-center">Error fetching sensor data: {(error as Error).message}</p>}
                 {!isLoading && !error && (
