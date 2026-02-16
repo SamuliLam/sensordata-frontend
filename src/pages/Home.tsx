@@ -2,7 +2,7 @@ import { Dashboard } from "@/components/Dashboard.tsx";
 import { AddSensor } from "@/components/AddSensor.tsx";
 import { RemoveSensor } from "@/components/RemoveSensor.tsx";
 import { LoadHistory } from "@/components/LoadHistory.tsx";
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {useQuery, useQueryClient} from "@tanstack/react-query";
 import { columns, type Sensor } from "@/components/ui/columns.tsx";
 import { DataTable } from "@/components/ui/data-table.tsx";
@@ -10,7 +10,6 @@ import { useSearch } from "@/contexts/SearchContext";
 import { useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "@/lib/utils";
 import { useAuthenticatedUser } from '@/hooks/useAuthenticatedUser.ts'
-import {useAuth0} from "@auth0/auth0-react";
 
 
 
@@ -44,24 +43,9 @@ export const Home = () => {
     const { searchValue } = useSearch();
     const navigate = useNavigate();
     const { user } = useAuthenticatedUser();
-    const [sessionReady, setSessionReady] = useState(false);
-    const { getAccessTokenSilently, isAuthenticated } = useAuth0();
-    const [jwtToken, setJwtToken] = useState<string | null>(null);
+    const { accessToken } = useAuthenticatedUser();
 
-    useEffect(() => {
-      const initSession = async () => {
-        if (!isAuthenticated) return;
-
-        const token = await getAccessTokenSilently();
-        setJwtToken(token);
-
-        setSessionReady(true); // 🔥 important
-      };
-
-      initSession();
-    }, [isAuthenticated]);
-
-        const isAdmin = user?.["https://envidata-api.metropolia.fi/admin"];
+    const isAdmin = user?.["https://envidata-api.metropolia.fi/admin"];
 
 
     const handleRowClick = (sensor: Sensor) => {
@@ -71,8 +55,10 @@ export const Home = () => {
     const { data, error, isLoading } = useQuery({
         queryKey: ["sensor_metadata"],
         queryFn: async () => {
-            const token = await getAccessTokenSilently();
-            return getTableData(token);
+            if (!accessToken) {
+                throw new Error("Access token is not available");
+            }
+            return getTableData(accessToken);
         },});
 
     const [dashboardRefreshKey, setDashboardRefreshKey] = useState(0);
@@ -86,7 +72,7 @@ export const Home = () => {
         });
     };
 
-    const map_dsb = `/grafana/d-solo/ad8fclh/main-dashboard?orgId=1&from=1764683710414&to=1764705310414&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true&kiosk&auth_token=${jwtToken}`;
+    const map_dsb = `/grafana/d-solo/ad8fclh/main-dashboard?orgId=1&from=1764683710414&to=1764705310414&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true&kiosk&auth_token=${accessToken}`;
 
 
     return (
@@ -107,13 +93,11 @@ export const Home = () => {
                 <div className="flex self-start ">
                     <LoadHistory/>
                 </div>
-                {sessionReady &&
                     <Dashboard
                         styles="w-full"
                         dsb_link={map_dsb}
                         refreshKey={dashboardRefreshKey}
                     />
-                }
                 {isLoading && <p className="text-center">Loading sensor data...</p>}
                 {error && <p className="text-center">Error fetching sensor data: {(error as Error).message}</p>}
                 {!isLoading && !error && (
