@@ -76,11 +76,11 @@ export const Home = () => {
 
 
     return (
-        <div className="flex flex-col md:flex-row w-full justify-center grow p-4">
+        <div className="flex flex-col md:flex-row w-full justify-center p-4">
 
             {/* Left panel — Add/Remove Sensor */}
             {isAdmin && (
-                <div className="order-2 md:order-1 md:mr-15 w-full md:w-1/5 flex-col md:min-w-[250px] space-y-8 mb-4 md:mb-0 md:ml-4 p-3 pt-14">
+                <div className="order-2 md:order-1 md:mr-15 w-full md:w-1/5 flex-col md:min-w-[250px] space-y-8 mb-4 md:mb-0 md:ml-4 pt-12">
 
                     {/* Pass refresh callback to AddSensor */}
                     <AddSensor onSensorAdded={refreshEverything} />
@@ -89,12 +89,12 @@ export const Home = () => {
             )}
             {/* Right panel — Dashboards + DataTable */}
 
-            <div className="dashboard-container order-1 md:order-2  flex flex-col gap-3 items-stretch grow md:max-w-[69%] p-2">
+            <div className="dashboard-container order-1 md:order-2 flex flex-col gap-3 items-stretch grow md:max-w-[69%] min-h-[70vh]">
                 <div className="flex self-start ">
                     <LoadHistory/>
                 </div>
                     <Dashboard
-                        styles="w-full"
+                        styles="w-full min-h-[35vh]"
                         dsb_link={map_dsb}
                         refreshKey={dashboardRefreshKey}
                     />

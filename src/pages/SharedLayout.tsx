@@ -58,7 +58,7 @@ export const SharedLayout = () => {
                         <li>
                             {isAuthenticated && (
                                 <div className="logged-in-section flex gap-5 items-center">
-                                    <div className="profile-card">
+                                    <div className="profile-card shrink-0">
                                         <Profile />
                                     </div>
                                     <LogoutButton />
