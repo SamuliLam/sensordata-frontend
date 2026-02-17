@@ -42,7 +42,6 @@ export const AuthenticationGuard = ({ component: Component }: { component: Compo
                 <Spinner className="size-1/25" />
             </div>
         ),
-        returnTo: '/',
     });
 
     return <GuardedComponent />;

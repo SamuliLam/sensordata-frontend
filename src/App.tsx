@@ -35,7 +35,7 @@ function App() {
                     >
                         <Routes>
                             <Route path="/access-requested" element={<AccessRequested />} />
-                            <Route path="/" element={<AuthenticationGuard component={SharedLayout}/>}>
+                            <Route element={<AuthenticationGuard component={SharedLayout}/>}>
                                     <Route index element={<Home/>}/>
                                     <Route path="sensors/:sensorId" element={<SensorData/>}></Route>
                                     <Route path="sensors" element={<Sensors/>}></Route>
