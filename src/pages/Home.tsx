@@ -71,7 +71,7 @@ export const Home = () => {
         });
     };
 
-    const map_dsb = `/grafana/d-solo/ad8fclh/main-dashboard?orgId=1&from=1764683710414&to=1764705310414&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true&kiosk&auth_token=${accessToken}`;
+    const map_dsb = `/grafana/d-solo/ad8fclh/main-dashboard?orgId=1&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true&kiosk&auth_token=${accessToken}`;
 
 
     return (
