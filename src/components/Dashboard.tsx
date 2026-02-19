@@ -2,16 +2,18 @@ interface DashboardProps {
     dsb_link: string;
     styles?: string;
     refreshKey?: number;
+    theme?: string;
 }
 
-export const Dashboard = ({ dsb_link, styles, refreshKey = 0  }: DashboardProps) => {
+export const Dashboard = ({ dsb_link, styles, refreshKey = 0, theme }: DashboardProps) => {
     const defaultClasses = "grow rounded-md shadow-light-shadow-sm"
 
     const to = Date.now();
     const from = new Date();
     from.setMonth(from.getMonth() - 1);
 
-    const new_dsb_url = `${dsb_link}&from=${from.getTime()}&to=${to}`;
+    const themeUrl = theme ? `&theme=${theme}` : ''
+    const new_dsb_url = `${dsb_link}&from=${from.getTime()}&to=${to}${themeUrl}`;
 
     return (
         <iframe

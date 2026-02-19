@@ -71,7 +71,7 @@ export const Home = () => {
         });
     };
 
-    const map_dsb = `/grafana/d-solo/ad8fclh/main-dashboard?orgId=1&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true&kiosk&auth_token=${accessToken}`;
+    const map_dsb = `/grafana/d-solo/ad8fclh/main-dashboard?orgId=1&timezone=browser&panelId=panel-2&__feature.dashboardSceneSolo=true&kiosk&auth_token=${accessToken}`;
 
 
     return (
@@ -96,6 +96,7 @@ export const Home = () => {
                         styles="w-full min-h-[35vh]"
                         dsb_link={map_dsb}
                         refreshKey={dashboardRefreshKey}
+                        theme="light"
                     />
                 {isLoading && <p className="text-center">Loading sensor data...</p>}
                 {error && <p className="text-center">Error fetching sensor data: {(error as Error).message}</p>}
