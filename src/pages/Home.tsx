@@ -42,8 +42,7 @@ export const Home = () => {
     const queryClient = useQueryClient();
     const { searchValue } = useSearch();
     const navigate = useNavigate();
-    const { user } = useAuthenticatedUser();
-    const { accessToken } = useAuthenticatedUser();
+    const { user, accessToken } = useAuthenticatedUser();
 
     const isAdmin = user?.["https://envidata-api.metropolia.fi/admin"];
 
