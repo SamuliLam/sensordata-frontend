@@ -1,17 +1,18 @@
 "use client"
 
-import type {ColumnDef} from "@tanstack/react-table"
+import type { ColumnDef } from "@tanstack/react-table"
+import { Button } from "@/components/ui/button"
+import { Pencil } from "lucide-react"
 
-// This type is used to define the shape of our data.
-// You can use a Zod schema here if you want.
 export type Sensor = {
     sensor_id: string
-    sensor_type: string
+    description?: string
+    project_id: string
     latitude: number
     longitude: number
 }
 
-export const columns: ColumnDef<Sensor>[] = [
+export const getColumns = (onEdit: (sensor: Sensor) => void): ColumnDef<Sensor>[] => [
     {
         accessorKey: "sensor_id",
         header: "Sensor ID",
@@ -21,8 +22,8 @@ export const columns: ColumnDef<Sensor>[] = [
         header: "Description",
     },
     {
-        accessorKey: "sensor_type",
-        header: "Type",
+        accessorKey: "project_id",
+        header: "Project",
     },
     {
         accessorKey: "latitude",
@@ -31,5 +32,26 @@ export const columns: ColumnDef<Sensor>[] = [
     {
         accessorKey: "longitude",
         header: "Longitude",
+    },
+    {
+        id: "actions",
+        header: "Actions",
+        cell: ({ row }) => {
+            const sensor = row.original
+            return (
+                <Button
+                    variant="ghost"
+                    size="sm"
+                    className="flex gap-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50"
+                    onClick={(e) => {
+                        e.stopPropagation();
+                        onEdit(sensor);
+                    }}
+                >
+                    <Pencil size={14} />
+                    Edit
+                </Button>
+            )
+        },
     }
 ]
