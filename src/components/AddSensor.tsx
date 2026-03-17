@@ -184,7 +184,7 @@ export function AddSensor({
 
                     <div>
                         <FieldLabel htmlFor="description">Description</FieldLabel>
-                        <Input id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Location description" />
+                        <Input id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Sensor description" />
                     </div>
 
                     <div className="grid grid-cols-2 gap-2">
