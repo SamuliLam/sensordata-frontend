@@ -190,11 +190,11 @@ export function AddSensor({
                     <div className="grid grid-cols-2 gap-2">
                         <div>
                             <FieldLabel>Latitude</FieldLabel>
-                            <Input value={latitude} onChange={(e) => setLatitude(e.target.value)} placeholder="60.123" />
+                            <Input value={latitude} onChange={(e) => setLatitude(e.target.value)} placeholder="60.258101" />
                         </div>
                         <div>
                             <FieldLabel>Longitude</FieldLabel>
-                            <Input value={longitude} onChange={(e) => setLongitude(e.target.value)} placeholder="24.456" />
+                            <Input value={longitude} onChange={(e) => setLongitude(e.target.value)} placeholder="24.845725" />
                         </div>
                     </div>
                 </div>
