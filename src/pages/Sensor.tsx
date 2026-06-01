@@ -6,7 +6,7 @@ export const SensorData = ({ styles }: { styles?: string }) => {
   const { accessToken } = useAuthenticatedUser();
 
   const defaultClasses = "grow rounded-md shadow-light-shadow-sm h-full";
-    const dsb_link = `/grafana/d/adt4t5d/sensor?orgId=1&from=now-30d&to=now&timezone=browser&var-SensorID=${sensorId}&var-metric=$__all&refresh=10s&theme=light&kiosk&auth_token=${accessToken}`;
+    const dsb_link = `/grafana/d/adc76n7/sensor?orgId=1&from=now-30d&to=now&timezone=browser&var-SensorID=${sensorId}&var-metric=$__all&refresh=10s&theme=light&kiosk&auth_token=${accessToken}`;
 
   return (
       <div className="dashboard-container flex flex-col gap-3 justify-center items-center grow w-full p-2">
