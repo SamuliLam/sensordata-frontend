@@ -46,6 +46,7 @@ export const Home = () => {
     const { user, accessToken } = useAuthenticatedUser();
 
     const [editingSensor, setEditingSensor] = useState<Sensor | null>(null);
+    const [dashboardRefreshKey, setDashboardRefreshKey] = useState(0);
 
     const isAdmin = user?.["https://envidata-api.metropolia.fi/admin"];
 
@@ -81,7 +82,6 @@ export const Home = () => {
         },
     });
 
-    const [dashboardRefreshKey, setDashboardRefreshKey] = useState(0);
 
     const refreshEverything = () => {
         setDashboardRefreshKey(prev => prev + 1);
