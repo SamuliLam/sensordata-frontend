@@ -89,7 +89,7 @@ export const Home = () => {
         queryClient.invalidateQueries({ queryKey: ["unknown_sensors"] });
     };
 
-    const map_dsb = `/grafana/d-solo/ad8fclh/main-dashboard?orgId=1&from=1764683710414&to=1764705310414&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true&kiosk&auth_token=${accessToken}`;
+    const map_dsb = `/grafana/d-solo/adkxl2z/main-dashboard?orgId=1&from=1764683710414&to=1764705310414&timezone=browser&theme=light&panelId=panel-2&__feature.dashboardSceneSolo=true&kiosk&auth_token=${accessToken}`;
 
     return (
         <div className="flex flex-col md:flex-row w-full justify-center p-4">
